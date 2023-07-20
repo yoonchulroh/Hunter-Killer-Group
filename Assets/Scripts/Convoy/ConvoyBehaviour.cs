@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class ConvoyBehaviour : MonoBehaviour
 {
@@ -11,8 +12,6 @@ public class ConvoyBehaviour : MonoBehaviour
     private void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
-        _destination = new Vector3(30,0,0);
-        _speed = 15f;
     }
 
     private void Update()
@@ -20,11 +19,15 @@ public class ConvoyBehaviour : MonoBehaviour
         var currentPosition = transform.position;
         var directionalVector = _speed * (_destination - currentPosition).normalized;
         _rigidBody2D.velocity = directionalVector;
+        CheckArrivedAtDestination(0.1f);
     }
 
-    private void ArrivedAtDestination()
+    private void CheckArrivedAtDestination(float allowedRange)
     {
-
+        if (Math.Abs(transform.position.x - _destination.x) < allowedRange && Math.Abs(transform.position.y - _destination.y) < allowedRange)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void SetOrigin(GameObject port)
