@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.6603774, g: 0.47484958, b: 0.19001423, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d195bce629a0f4226b37e0558547693c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _convoySpawner: {fileID: 4699197157833246186, guid: fa0146deb51a149b1b58fbe1bcf8d15b, type: 3}
   coordinate: {x: 0, y: 0, z: 0}
 --- !u!61 &8389144206489244842
 BoxCollider2D:
@@ -124,5 +123,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0

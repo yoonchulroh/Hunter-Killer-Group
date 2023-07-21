@@ -23,18 +23,18 @@ public class ConvoySpawner : MonoBehaviour
         var convoy = Instantiate<GameObject>(_convoyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
 
         convoy.transform.SetParent(gameObject.transform);
-        GetComponent<ConvoyManager>().AddNewConvoy(convoyID, convoy);
+        GameManager.Instance.convoyManager.AddNewConvoy(convoyID, convoy);
 
-        convoy.GetComponent<ConvoyBehaviour>().SetOrigin(_portSpawner.GetComponent<PortManager>().portDict[originID]);
-        convoy.GetComponent<ConvoyBehaviour>().SetDestination(_portSpawner.GetComponent<PortManager>().portDict[destinationID]);
+        convoy.GetComponent<ConvoyBehaviour>().SetOrigin(GameManager.Instance.portManager.portDict[originID]);
+        convoy.GetComponent<ConvoyBehaviour>().SetDestination(GameManager.Instance.portManager.portDict[destinationID]);
         convoy.GetComponent<ConvoyBehaviour>().SetSpeed(5f);
         convoy.GetComponent<ConvoyBehaviour>().SetID(convoyID);
     }
 
     public void SpawnConvoyOnPort(int originID)
     {
-        var portCount = _portSpawner.GetComponent<PortManager>().portDict.Count;
-        var convoyCount = GetComponent<ConvoyManager>().convoyDict.Count;
+        var portCount = GameManager.Instance.portManager.portDict.Count;
+        var convoyCount = GameManager.Instance.convoyManager.convoyDict.Count;
         SpawnConvoy(convoyCount, originID, Random.Range(0, portCount));
     }
 }
