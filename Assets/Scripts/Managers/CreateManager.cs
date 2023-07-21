@@ -13,10 +13,11 @@ public class CreateManager : MonoBehaviour
     public CreateMode createMode => _createMode;
     
     public int seawayOrigin;
+    public int seawayDestinationCandidate;
 
     void Start()
     {
-        _createMode = CreateMode.Convoys;
+        _createMode = CreateMode.SeawaysOrigin;
     }
 
     public void SwitchCreateMode(CreateMode target)
