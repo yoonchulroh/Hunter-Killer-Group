@@ -10,8 +10,8 @@ public class PortSpawner : MonoBehaviour
 
     void Start()
     {
-        _portManager = GetComponent<PortManager>();
-        for (int i = 0; i < 5; ++i)
+        _portManager = GameManager.Instance.portManager;
+        for (int i = 0; i < 10; ++i)
         {
             SpawnPort(i, Random.Range(-40, 40), Random.Range(-20, 20));
         }

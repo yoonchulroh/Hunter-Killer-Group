@@ -5,6 +5,7 @@ using UnityEngine;
 public class PortBehaviour : MonoBehaviour
 {
     private GameObject _convoySpawner;
+    private GameObject _seawaySpawner;
     public Vector3 coordinate;
 
     private int _id;
@@ -12,7 +13,8 @@ public class PortBehaviour : MonoBehaviour
 
     void Awake()
     {
-        _convoySpawner = GameObject.FindWithTag("ConvoyManager");
+        _convoySpawner = GameObject.FindWithTag("ConvoySpawner");
+        _seawaySpawner = GameObject.FindWithTag("SeawaySpawner");
     }
 
     // Update is called once per frame
@@ -34,6 +36,22 @@ public class PortBehaviour : MonoBehaviour
 
     void OnMouseDown()
     {
-        _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id);
+        if (GameManager.Instance.createManager.createMode == CreateMode.Convoys)
+        {
+            _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id);
+        }
+        else if (GameManager.Instance.createManager.createMode == CreateMode.SeawaysOrigin)
+        {
+            GameManager.Instance.createManager.seawayOrigin = _id;
+            GameManager.Instance.createManager.SwitchCreateMode(CreateMode.SeawaysDestination);
+        }
+        else if (GameManager.Instance.createManager.createMode == CreateMode.SeawaysDestination)
+        {
+            if (GameManager.Instance.createManager.seawayOrigin != _id)
+            {
+                _seawaySpawner.GetComponent<SeawaySpawner>().SpawnSeaway(GameManager.Instance.createManager.seawayOrigin, _id);
+                GameManager.Instance.createManager.SwitchCreateMode(CreateMode.SeawaysOrigin);
+            }
+        }
     }
 }
