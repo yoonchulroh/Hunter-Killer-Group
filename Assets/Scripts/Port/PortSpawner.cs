@@ -11,7 +11,7 @@ public class PortSpawner : MonoBehaviour
     void Start()
     {
         _portManager = GameManager.Instance.portManager;
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < 19; ++i)
         {
             SpawnPort(i, Random.Range(-40, 40), Random.Range(-20, 20));
             //SpawnPort(i, i*10 - 20, i*5 - 10);
