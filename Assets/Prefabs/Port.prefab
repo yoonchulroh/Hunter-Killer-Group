@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d195bce629a0f4226b37e0558547693c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _seawayPrefab: {fileID: 2087089031655143725, guid: 3f49ccf6caec1443e81d16f4de8624f4, type: 3}
   coordinate: {x: 0, y: 0, z: 0}
 --- !u!61 &8389144206489244842
 BoxCollider2D:
