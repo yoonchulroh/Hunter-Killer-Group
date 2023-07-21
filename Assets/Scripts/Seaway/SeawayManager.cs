@@ -50,8 +50,6 @@ public class SeawayManager : MonoBehaviour
             exists = true;
         }
 
-        Debug.Log(CheckDistance(end1, end2));
-        Debug.Log(CheckDistance(end1, end2));
         return exists;
     }
 
