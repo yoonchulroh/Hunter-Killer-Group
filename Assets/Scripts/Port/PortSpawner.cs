@@ -14,6 +14,7 @@ public class PortSpawner : MonoBehaviour
         for (int i = 0; i < 10; ++i)
         {
             SpawnPort(i, Random.Range(-40, 40), Random.Range(-20, 20));
+            //SpawnPort(i, i*10 - 20, i*5 - 10);
         }
     }
 
