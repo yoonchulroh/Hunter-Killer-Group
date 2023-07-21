@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public ConvoyManager convoyManager { get; private set; }
     public PortManager portManager { get; private set; }
     public SeawayManager seawayManager { get; private set; }
+    public UboatManager uboatManager { get; private set; }
 
     private void Awake()
     {
@@ -27,5 +28,6 @@ public class GameManager : MonoBehaviour
         convoyManager = GetComponentInChildren<ConvoyManager>();
         portManager = GetComponentInChildren<PortManager>();
         seawayManager = GetComponentInChildren<SeawayManager>();
+        uboatManager = GetComponentInChildren<UboatManager>();
     }
 }

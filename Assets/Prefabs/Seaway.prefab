@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6318283593075844866}
   m_Layer: 0
   m_Name: Seaway
-  m_TagString: Untagged
+  m_TagString: Seaway
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

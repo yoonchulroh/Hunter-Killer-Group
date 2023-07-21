@@ -7,6 +7,9 @@ public class ConvoyBehaviour : MonoBehaviour
 {
     private Rigidbody2D _rigidBody2D;
 
+    private bool _destroyed = false;
+    public bool destroyed => _destroyed;
+
     private int _currentPortID;
     private int _nextPortID;
     private Vector3 _destination; // coordinates of _nextPortID
@@ -24,14 +27,12 @@ public class ConvoyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (_routeFound)
+        if (_routeFound && !_destroyed)
         {
-            var currentPosition = transform.position;
-            var directionalVector = _speed * (_destination - currentPosition).normalized;
-            _rigidBody2D.velocity = directionalVector;
+            SetVelocity();
             CheckArrivedAtDestination(0.1f);
         }
-        else
+        else if (!_destroyed)
         {
             _routeFound = SetNextDestination();
             if (!_routeFound)
@@ -39,6 +40,41 @@ public class ConvoyBehaviour : MonoBehaviour
                 _rigidBody2D.velocity = new Vector3(0, 0, 0);
             }
         }
+    }
+
+    public void SetOrigin(GameObject port)
+    {
+        _currentPortID = port.GetComponent<PortBehaviour>().id;
+        transform.position = port.GetComponent<PortBehaviour>().coordinate;
+    }
+
+    public void SetDestination(GameObject port)
+    {
+        _destinationPortID = port.GetComponent<PortBehaviour>().id;
+        _routeFound = SetNextDestination();
+    }
+
+    public void SetSpeed(float speed)
+    {
+        _speed = speed;
+    }
+
+    public void SetID(int id)
+    {
+        _id = id;
+    }
+
+    public void Destroyed()
+    {
+        _destroyed = true;
+        _speed = 0f;
+        _rigidBody2D.velocity = new Vector3(0, 0, 0);
+        GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+
+
+        var currentPosition = transform.position;
+        currentPosition.z = 1;
+        transform.position = currentPosition;
     }
 
     private void CheckArrivedAtDestination(float allowedRange)
@@ -55,6 +91,13 @@ public class ConvoyBehaviour : MonoBehaviour
                 _routeFound = SetNextDestination();
             }
         }
+    }
+
+    private void SetVelocity()
+    {
+        var currentPosition = transform.position;
+        var directionalVector = _speed * (_destination - currentPosition).normalized;
+        _rigidBody2D.velocity = directionalVector;
     }
 
     private bool SetNextDestination()
@@ -157,27 +200,5 @@ public class ConvoyBehaviour : MonoBehaviour
 
             return minDistPort;
         }
-    }
-
-    public void SetOrigin(GameObject port)
-    {
-        _currentPortID = port.GetComponent<PortBehaviour>().id;
-        transform.position = port.GetComponent<PortBehaviour>().coordinate;
-    }
-
-    public void SetDestination(GameObject port)
-    {
-        _destinationPortID = port.GetComponent<PortBehaviour>().id;
-        _routeFound = SetNextDestination();
-    }
-
-    public void SetSpeed(float speed)
-    {
-        _speed = speed;
-    }
-
-    public void SetID(int id)
-    {
-        _id = id;
     }
 }
