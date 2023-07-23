@@ -14,16 +14,12 @@ public class PortBehaviour : MonoBehaviour
     private int _id;
     public int id => _id;
 
+    public char alphabetID;
+
     void Awake()
     {
         _convoySpawner = GameObject.FindWithTag("ConvoySpawner");
         _seawaySpawner = GameObject.FindWithTag("SeawaySpawner");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SetCoordinate(Vector3 portCoordinate)
@@ -35,6 +31,7 @@ public class PortBehaviour : MonoBehaviour
     public void SetID(int id)
     {
         _id = id;
+        alphabetID = (char) (id+65);
     }
 
     void OnMouseDown()

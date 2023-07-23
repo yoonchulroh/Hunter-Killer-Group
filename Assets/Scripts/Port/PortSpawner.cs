@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class PortSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _portPrefab;
+    [SerializeField] private GameObject _labelPrefab;
     private PortManager _portManager;
 
     void Start()
@@ -18,12 +19,6 @@ public class PortSpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void SpawnPort(int ID, float xPos, float yPos)
     {
         var port = Instantiate<GameObject>(_portPrefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -31,5 +26,8 @@ public class PortSpawner : MonoBehaviour
         port.GetComponent<PortBehaviour>().SetCoordinate(new Vector3(xPos, yPos, 0));
         port.GetComponent<PortBehaviour>().SetID(ID);
         _portManager.AddNewPort(ID, port);
+
+        var labelText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        labelText.GetComponent<LabelTextBehaviour>().SetParentType(port, ParentType.Port);
     }
 }

@@ -10,15 +10,22 @@ public class ConvoyBehaviour : MonoBehaviour
     private bool _destroyed = false;
     public bool destroyed => _destroyed;
 
+
     private int _currentPortID;
     private int _nextPortID;
     private Vector3 _destination; // coordinates of _nextPortID
+
+    private int _originPortID;
+    public int originPortID => _originPortID;
     private int _destinationPortID;
+    public int destinationPortID => _destinationPortID;
 
     private bool _routeFound;
 
     private float _speed;
+
     private int _id;
+    public int id => _id;
 
     private void Start()
     {
@@ -44,6 +51,7 @@ public class ConvoyBehaviour : MonoBehaviour
 
     public void SetOrigin(GameObject port)
     {
+        _originPortID = port.GetComponent<PortBehaviour>().id;
         _currentPortID = port.GetComponent<PortBehaviour>().id;
         transform.position = port.GetComponent<PortBehaviour>().coordinate;
     }
