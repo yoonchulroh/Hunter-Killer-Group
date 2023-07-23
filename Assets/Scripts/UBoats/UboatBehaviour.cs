@@ -6,6 +6,12 @@ using Random = UnityEngine.Random;
 
 public class UboatBehaviour : MonoBehaviour
 {
+    private enum TravelMode
+    {
+        Random,
+        TrackConvoy
+    }
+
     private Rigidbody2D _rigidBody2D;
 
     private int _id;
@@ -13,12 +19,19 @@ public class UboatBehaviour : MonoBehaviour
 
     private float _speed;
     private Vector3 _destination;
+    private TravelMode _travelMode;
+
+    private List<GameObject> _detectedConvoys = new List<GameObject>();
+
+    private int _attack = 34;
+    private float _attackPeriod = 0.25f;
 
     private void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
-
+        _travelMode = TravelMode.Random;
         SetDestinationRandomly();
+        StartCoroutine(AttackClosestConvoy());
     }
 
     private void Update()
@@ -26,22 +39,40 @@ public class UboatBehaviour : MonoBehaviour
         var currentPosition = transform.position;
         var directionalVector = _speed * (_destination - currentPosition).normalized;
         _rigidBody2D.velocity = directionalVector;
-        CheckArrivedAtDestination(0.1f);
+
+        //setting new destination coordinates
+        if (_travelMode == TravelMode.Random)
+        {
+            CheckArrivedAtDestination(0.1f);
+        }
+        
+        if (_detectedConvoys.Count == 0 && _travelMode == TravelMode.TrackConvoy)
+        {
+            _travelMode = TravelMode.Random;
+            SetDestinationRandomly();
+        }
+
+        if (_detectedConvoys.Count > 0)
+        {
+            _travelMode = TravelMode.TrackConvoy;
+            SetDestinationOnClosestConvoy();
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Convoy")
         {
-            collision.gameObject.GetComponent<ConvoyBehaviour>().Destroyed();
+            Debug.Assert(!_detectedConvoys.Contains(collision.gameObject));
+            _detectedConvoys.Add(collision.gameObject);
         }
     }
 
-    private void CheckArrivedAtDestination(float allowedRange)
+    public void OnTriggerExit2D(Collider2D collision)
     {
-        if (Math.Abs(transform.position.x - _destination.x) < allowedRange && Math.Abs(transform.position.y - _destination.y) < allowedRange)
+        if (collision.gameObject.tag == "Convoy")
         {
-            SetDestinationRandomly();
+            _detectedConvoys.Remove(collision.gameObject);
         }
     }
 
@@ -55,8 +86,57 @@ public class UboatBehaviour : MonoBehaviour
         _speed = speed;
     }
 
+    private void CheckArrivedAtDestination(float allowedRange)
+    {
+        if (Math.Abs(transform.position.x - _destination.x) < allowedRange && Math.Abs(transform.position.y - _destination.y) < allowedRange)
+        {
+            if (_travelMode == TravelMode.Random)
+            {
+                SetDestinationRandomly();
+            }
+        }
+    }
+
     public void SetDestinationRandomly()
     {
         _destination = new Vector3(Random.Range(-40, 40), Random.Range(-20, 20), 0f);
+    }
+
+    private void SetDestinationOnClosestConvoy()
+    {
+        _destination = ClosestDetectedConvoy().transform.position;
+    }
+
+    private IEnumerator AttackClosestConvoy()
+    {
+        while (true)
+        {
+            if (_detectedConvoys.Count > 0)
+            {
+                ClosestDetectedConvoy().GetComponent<ConvoyBehaviour>().Attacked(_attack);
+            }
+            yield return new WaitForSeconds(_attackPeriod);
+        }
+    }
+
+    private GameObject ClosestDetectedConvoy()
+    {
+        if (_detectedConvoys.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            var closestConvoy = _detectedConvoys[0];
+
+            foreach (GameObject convoy in _detectedConvoys)
+            {
+                if (Vector3.Distance(transform.position, convoy.transform.position) < Vector3.Distance(transform.position, closestConvoy.transform.position))
+                {
+                    closestConvoy = convoy;
+                }
+            }
+            return closestConvoy;
+        }
     }
 }

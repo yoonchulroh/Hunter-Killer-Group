@@ -5,8 +5,12 @@ using System.Collections.Generic;
 
 public class ConvoyBehaviour : MonoBehaviour
 {
+    [SerializeField] private GameObject _destroyedConvoyPrefab;
+    private GameObject _destroyedConvoyCollectionObject;
     private Rigidbody2D _rigidBody2D;
 
+    private int _hp = 100;
+    public int hp => _hp;
     private bool _destroyed = false;
     public bool destroyed => _destroyed;
 
@@ -30,6 +34,7 @@ public class ConvoyBehaviour : MonoBehaviour
     private void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
+        _destroyedConvoyCollectionObject = GameObject.FindWithTag("DestroyedConvoyCollection");
     }
 
     private void Update()
@@ -72,8 +77,21 @@ public class ConvoyBehaviour : MonoBehaviour
         _id = id;
     }
 
-    public void Destroyed()
+    public void Attacked(int damage)
     {
+        _hp -= damage;
+        if (_hp <= 0)
+        {
+            Destroyed();
+        }
+    }
+
+    private void Destroyed()
+    {
+        var destroyedConvoy = Instantiate<GameObject>(_destroyedConvoyPrefab, transform.position, Quaternion.identity);
+        destroyedConvoy.transform.SetParent(_destroyedConvoyCollectionObject.transform, false);
+        Destroy(gameObject);
+        /*
         _destroyed = true;
         _speed = 0f;
         _rigidBody2D.velocity = new Vector3(0, 0, 0);
@@ -83,6 +101,7 @@ public class ConvoyBehaviour : MonoBehaviour
         var currentPosition = transform.position;
         currentPosition.z = 1;
         transform.position = currentPosition;
+        */
     }
 
     private void CheckArrivedAtDestination(float allowedRange)

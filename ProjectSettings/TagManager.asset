@@ -12,6 +12,8 @@ TagManager:
   - Port
   - Seaway
   - Uboat
+  - DestroyedConvoyCollection
+  - DestroyedConvoy
   layers:
   - Default
   - TransparentFX
