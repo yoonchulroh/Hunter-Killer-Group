@@ -756,6 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seawayOrigin: 0
+  seawayDestinationCandidate: 0
 --- !u!1 &734951283
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _portPrefab: {fileID: 2464769148631190188, guid: 7342c7637ff8e44d88570fd038d8b3fe, type: 3}
+  _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
 --- !u!4 &1083773962
 Transform:
   m_ObjectHideFlags: 0
@@ -990,6 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _portSpawner: {fileID: 1083773959}
   _convoyPrefab: {fileID: 4974811147804403922, guid: 5d63a8363224246448180019c6898277, type: 3}
+  _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
 --- !u!4 &1199364393
 Transform:
   m_ObjectHideFlags: 0
