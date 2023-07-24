@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    private CreateManager _createManager;
+    private EditManager _editManager;
 
     void Start() 
     {
-        _createManager = GameManager.Instance.createManager;
+        _editManager = GameManager.Instance.editManager;
     }
 
     public void OnClickConvoyButton()
     {
-        _createManager.SwitchCreateMode(CreateMode.Convoys);
+        _editManager.SwitchEditMode(EditMode.CreateConvoys);
     }
 
     public void OnClickSeawayButton()
     {
-        _createManager.SwitchCreateMode(CreateMode.SeawaysOrigin);
+        _editManager.SwitchEditMode(EditMode.CreateSeawaysOrigin);
     }
 
     public void OnClickRadarButton()
     {
-        _createManager.SwitchCreateMode(CreateMode.Radar);
+        _editManager.SwitchEditMode(EditMode.CreateRadar);
     }
 }

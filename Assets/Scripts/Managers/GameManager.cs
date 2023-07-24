@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public CreateManager createManager { get; private set; }
+    public EditManager editManager { get; private set; }
     public UIManager uIManager { get; private set; }
 
     public ConvoyManager convoyManager { get; private set; }
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
 
-        createManager = GetComponentInChildren<CreateManager>();
+        editManager = GetComponentInChildren<EditManager>();
         uIManager = GetComponentInChildren<UIManager>();
 
         convoyManager = GetComponentInChildren<ConvoyManager>();

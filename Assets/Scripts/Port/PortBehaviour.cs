@@ -104,15 +104,15 @@ public class PortBehaviour : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (GameManager.Instance.createManager.createMode == CreateMode.Convoys && _portType == PortType.Producer)
+        if (GameManager.Instance.editManager.editMode == EditMode.CreateConvoys && _portType == PortType.Producer)
         {
             _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id, _resourceType);
         }
-        else if (GameManager.Instance.createManager.createMode == CreateMode.SeawaysOrigin)
+        else if (GameManager.Instance.editManager.editMode == EditMode.CreateSeawaysOrigin)
         {
-            GameManager.Instance.createManager.seawayOrigin = _id;
-            GameManager.Instance.createManager.seawayDestinationCandidate = _id;
-            GameManager.Instance.createManager.SwitchCreateMode(CreateMode.SeawaysDestination);
+            GameManager.Instance.editManager.seawayOrigin = _id;
+            GameManager.Instance.editManager.seawayDestinationCandidate = _id;
+            GameManager.Instance.editManager.SwitchEditMode(EditMode.CreateSeawaysDestination);
 
             _seawayCandidate = Instantiate<GameObject>(_seawayPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             _seawayCandidate.GetComponent<LineRenderer>().SetPosition(0, coordinate);
@@ -122,20 +122,20 @@ public class PortBehaviour : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (GameManager.Instance.createManager.createMode == CreateMode.SeawaysDestination)
+        if (GameManager.Instance.editManager.editMode == EditMode.CreateSeawaysDestination)
         {
-            if (GameManager.Instance.createManager.seawayDestinationCandidate != GameManager.Instance.createManager.seawayOrigin)
+            if (GameManager.Instance.editManager.seawayDestinationCandidate != GameManager.Instance.editManager.seawayOrigin)
             {
-                _seawaySpawner.GetComponent<SeawaySpawner>().SpawnSeaway(_id, GameManager.Instance.createManager.seawayDestinationCandidate);
+                _seawaySpawner.GetComponent<SeawaySpawner>().SpawnSeaway(_id, GameManager.Instance.editManager.seawayDestinationCandidate);
             }
             Destroy(_seawayCandidate);
-            GameManager.Instance.createManager.SwitchCreateMode(CreateMode.SeawaysOrigin);
+            GameManager.Instance.editManager.SwitchEditMode(EditMode.CreateSeawaysOrigin);
         }
     }
 
     void OnMouseDrag()
     {
-        if (GameManager.Instance.createManager.createMode == CreateMode.SeawaysDestination)
+        if (GameManager.Instance.editManager.editMode == EditMode.CreateSeawaysDestination)
         {
             var mousePosition = Camera.main.ScreenToWorldPoint( new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0) );
             _seawayCandidate.GetComponent<LineRenderer>().SetPosition(1, mousePosition);
@@ -144,20 +144,20 @@ public class PortBehaviour : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (GameManager.Instance.createManager.createMode == CreateMode.SeawaysDestination)
+        if (GameManager.Instance.editManager.editMode == EditMode.CreateSeawaysDestination)
         {
-            if (GameManager.Instance.createManager.seawayOrigin != _id)
+            if (GameManager.Instance.editManager.seawayOrigin != _id)
             {
-                GameManager.Instance.createManager.seawayDestinationCandidate = _id;
+                GameManager.Instance.editManager.seawayDestinationCandidate = _id;
             }
         }
     }
 
     void OnMouseExit()
     {
-        if (GameManager.Instance.createManager.createMode == CreateMode.SeawaysDestination)
+        if (GameManager.Instance.editManager.editMode == EditMode.CreateSeawaysDestination)
         {
-            GameManager.Instance.createManager.seawayDestinationCandidate = GameManager.Instance.createManager.seawayOrigin;
+            GameManager.Instance.editManager.seawayDestinationCandidate = GameManager.Instance.editManager.seawayOrigin;
         }
     }
 }
