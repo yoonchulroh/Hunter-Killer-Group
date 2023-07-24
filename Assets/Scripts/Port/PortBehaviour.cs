@@ -2,9 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PortType
+{
+    Producer,
+    Consumer,
+    Waypoint
+}
+
+public enum ResourceType
+{
+    Square,
+    Circle,
+    Triangle,
+    Star
+}
+
 public class PortBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject _seawayPrefab;
+    [SerializeField] private GameObject _labelPrefab;
     private GameObject _seawayCandidate;
 
     private GameObject _convoySpawner;
@@ -13,13 +29,28 @@ public class PortBehaviour : MonoBehaviour
 
     private int _id;
     public int id => _id;
-
     public char alphabetID;
+
+    private PortType _portType;
+    public PortType portType => _portType;
+    private ResourceType _resourceType;
+    public ResourceType resourceType => _resourceType;
 
     void Awake()
     {
         _convoySpawner = GameObject.FindWithTag("ConvoySpawner");
         _seawaySpawner = GameObject.FindWithTag("SeawaySpawner");
+    }
+
+    void Start()
+    {
+        var nameLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        nameLabel.transform.SetParent(gameObject.transform, false);
+        nameLabel.GetComponent<LabelTextBehaviour>().SetNameLabel(gameObject, ParentType.Port);
+
+        var roleLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
+        roleLabel.transform.SetParent(gameObject.transform, false);
+        roleLabel.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Port);
     }
 
     public void SetCoordinate(Vector3 portCoordinate)
@@ -34,11 +65,17 @@ public class PortBehaviour : MonoBehaviour
         alphabetID = (char) (id+65);
     }
 
+    public void SetPortRole(PortType portType, ResourceType resourceType)
+    {
+        _portType = portType;
+        _resourceType = resourceType;
+    }
+
     void OnMouseDown()
     {
-        if (GameManager.Instance.createManager.createMode == CreateMode.Convoys)
+        if (GameManager.Instance.createManager.createMode == CreateMode.Convoys && _portType == PortType.Producer)
         {
-            _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id);
+            _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id, _resourceType);
         }
         else if (GameManager.Instance.createManager.createMode == CreateMode.SeawaysOrigin)
         {

@@ -7,9 +7,8 @@ public class ConvoySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _portSpawner;
     [SerializeField] private GameObject _convoyPrefab;
-    [SerializeField] private GameObject _labelPrefab;
 
-    private void SpawnConvoy(int convoyID, int originID, int destinationID)
+    private void SpawnConvoy(int convoyID, int originID, int destinationID, ResourceType resourceType)
     {
         var convoy = Instantiate<GameObject>(_convoyPrefab, new Vector3(0, 0, 0), Quaternion.identity);
 
@@ -20,15 +19,14 @@ public class ConvoySpawner : MonoBehaviour
         convoy.GetComponent<ConvoyBehaviour>().SetSpeed(5f);
         convoy.GetComponent<ConvoyBehaviour>().SetDestination(GameManager.Instance.portManager.portDict[destinationID]);
         convoy.GetComponent<ConvoyBehaviour>().SetID(convoyID);
-
-        var labelText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
-        labelText.GetComponent<LabelTextBehaviour>().SetParentType(convoy, ParentType.Convoy);
+        convoy.GetComponent<ConvoyBehaviour>().SetRole(resourceType);
     }
 
-    public void SpawnConvoyOnPort(int originID)
+    public void SpawnConvoyOnPort(int originID, ResourceType resourceType)
     {
         var portCount = GameManager.Instance.portManager.portDict.Count;
         var convoyCount = GameManager.Instance.convoyManager.convoyDict.Count;
-        SpawnConvoy(convoyCount, originID, Random.Range(0, portCount));
+        var destinationID = GameManager.Instance.portManager.consumerPortDict[resourceType][Random.Range(0, GameManager.Instance.portManager.consumerPortDict[resourceType].Count)];
+        SpawnConvoy(convoyCount, originID, destinationID, resourceType);
     }
 }
