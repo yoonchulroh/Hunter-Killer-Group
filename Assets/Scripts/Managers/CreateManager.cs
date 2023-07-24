@@ -4,7 +4,8 @@ public enum CreateMode
 {
     Convoys,
     SeawaysOrigin,
-    SeawaysDestination
+    SeawaysDestination,
+    Radar
 }
 
 public class CreateManager : MonoBehaviour

@@ -18,4 +18,9 @@ public class UIManager : MonoBehaviour
     {
         _createManager.SwitchCreateMode(CreateMode.SeawaysOrigin);
     }
+
+    public void OnClickRadarButton()
+    {
+        _createManager.SwitchCreateMode(CreateMode.Radar);
+    }
 }
