@@ -11,7 +11,7 @@ public class UboatBehaviour : MonoBehaviour
         Random,
         TrackConvoy
     }
-
+    [SerializeField] private GameObject _detectorForUboatBehaviour;
     private Rigidbody2D _rigidBody2D;
 
     private int _id;
@@ -29,8 +29,14 @@ public class UboatBehaviour : MonoBehaviour
     private void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
+
+        var detectorForUboat = Instantiate<GameObject>(_detectorForUboatBehaviour, new Vector3(0, 0, 0), Quaternion.identity);
+        detectorForUboat.GetComponent<DetectorForUboatBehaviour>().SetParent(gameObject);
+        detectorForUboat.transform.SetParent(gameObject.transform, false);
+
         _travelMode = TravelMode.Random;
         SetDestinationRandomly();
+
         StartCoroutine(AttackClosestConvoy());
     }
 
@@ -59,8 +65,8 @@ public class UboatBehaviour : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
+    public void CollisionEnter(Collider2D collision)
+    {   
         if (collision.gameObject.tag == "Convoy")
         {
             Debug.Assert(!_detectedConvoys.Contains(collision.gameObject));
@@ -68,7 +74,7 @@ public class UboatBehaviour : MonoBehaviour
         }
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public void CollisionExit(Collider2D collision)
     {
         if (collision.gameObject.tag == "Convoy")
         {
@@ -84,6 +90,16 @@ public class UboatBehaviour : MonoBehaviour
     public void SetSpeed(float speed)
     {
         _speed = speed;
+    }
+
+    public void Reveal()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+    }
+
+    public void Hide()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
     }
 
     private void CheckArrivedAtDestination(float allowedRange)
