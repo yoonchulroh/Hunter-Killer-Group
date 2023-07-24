@@ -16,11 +16,10 @@ public class LabelTextBehaviour : MonoBehaviour
     private ParentType _parentType;
     public ParentType parentType => _parentType;
 
-    public void SetParentType(GameObject parent, ParentType parentType)
+    public void SetNameLabel(GameObject parent, ParentType parentType)
     {
         _parentObject = parent;
         _parentType = parentType;
-        gameObject.transform.SetParent(parent.transform, false);
 
         switch(parentType)
         {
@@ -29,6 +28,21 @@ public class LabelTextBehaviour : MonoBehaviour
                 break;
             case (ParentType.Port):
                 GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().alphabetID.ToString();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SetRoleLabel(GameObject parent, ParentType parentType)
+    {
+        switch(parentType)
+        {
+            case (ParentType.Convoy):
+                GetComponent<TextMeshPro>().text = "Carrying " + parent.GetComponent<ConvoyBehaviour>().resourceType;
+                break;
+            case (ParentType.Port):
+                GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().portType + " of " + parent.GetComponent<PortBehaviour>().resourceType;
                 break;
             default:
                 break;

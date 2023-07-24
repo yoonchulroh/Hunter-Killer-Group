@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class ConvoyBehaviour : MonoBehaviour
 {
+    [SerializeField] private GameObject _labelPrefab;
     [SerializeField] private GameObject _destroyedConvoyPrefab;
     private GameObject _destroyedConvoyCollectionObject;
     private Rigidbody2D _rigidBody2D;
@@ -31,10 +32,21 @@ public class ConvoyBehaviour : MonoBehaviour
     private int _id;
     public int id => _id;
 
+    private ResourceType _resourceType;
+    public ResourceType resourceType => _resourceType;
+
     private void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _destroyedConvoyCollectionObject = GameObject.FindWithTag("DestroyedConvoyCollection");
+
+        var nameText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        nameText.transform.SetParent(gameObject.transform, false);
+        nameText.GetComponent<LabelTextBehaviour>().SetNameLabel(gameObject, ParentType.Convoy);
+
+        var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
+        roleText.transform.SetParent(gameObject.transform, false);
+        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Convoy);
     }
 
     private void Update()
@@ -75,6 +87,11 @@ public class ConvoyBehaviour : MonoBehaviour
     public void SetID(int id)
     {
         _id = id;
+    }
+
+    public void SetRole(ResourceType resourceType)
+    {
+        _resourceType = resourceType;
     }
 
     public void Attacked(int damage)

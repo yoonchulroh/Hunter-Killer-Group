@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4974811147804403922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42e6c9ab194249bbb3d0f50d5925d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
   _destroyedConvoyPrefab: {fileID: 8816016062198577906, guid: 64a488f76eb484c78bd007684e7b1d86, type: 3}
 --- !u!58 &-2508896422147249019
 CircleCollider2D:

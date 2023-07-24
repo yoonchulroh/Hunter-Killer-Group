@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2464769148631190188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.1, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,7 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seawayPrefab: {fileID: 2087089031655143725, guid: 3f49ccf6caec1443e81d16f4de8624f4, type: 3}
+  _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
   coordinate: {x: 0, y: 0, z: 0}
+  alphabetID: 0
 --- !u!61 &8389144206489244842
 BoxCollider2D:
   m_ObjectHideFlags: 0
