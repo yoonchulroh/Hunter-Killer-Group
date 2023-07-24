@@ -35,6 +35,10 @@ public class PortBehaviour : MonoBehaviour
     public PortType portType => _portType;
     private ResourceType _resourceType;
     public ResourceType resourceType => _resourceType;
+    private GameObject _resourceNeedLabel;
+    private float _resourceNeed = 0f;
+    public float resourceNeed => _resourceNeed;
+    private float resourceFillSpeed = 1f;
 
     void Awake()
     {
@@ -51,6 +55,24 @@ public class PortBehaviour : MonoBehaviour
         var roleLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleLabel.transform.SetParent(gameObject.transform, false);
         roleLabel.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Port);
+
+        if (_portType == PortType.Consumer)
+        {
+            var resourceNeedLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(1, 0, 0), Quaternion.identity);
+            resourceNeedLabel.transform.SetParent(gameObject.transform, false);
+            resourceNeedLabel.GetComponent<LabelTextBehaviour>().SetResourceAmountLabel(_resourceNeed);
+
+            _resourceNeedLabel = resourceNeedLabel;
+        }
+    }
+
+    void Update()
+    {
+        if (_portType == PortType.Consumer)
+        {
+            _resourceNeed += resourceFillSpeed * Time.deltaTime;
+            _resourceNeedLabel.GetComponent<LabelTextBehaviour>().SetResourceAmountLabel(_resourceNeed);
+        }
     }
 
     public void SetCoordinate(Vector3 portCoordinate)
@@ -69,6 +91,15 @@ public class PortBehaviour : MonoBehaviour
     {
         _portType = portType;
         _resourceType = resourceType;
+    }
+
+    public void ResourceFilled(float amount)
+    {
+        _resourceNeed -= amount;
+        if (_resourceNeed < 0)
+        {
+            _resourceNeed = 0;
+        }
     }
 
     void OnMouseDown()
