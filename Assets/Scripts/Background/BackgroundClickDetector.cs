@@ -10,7 +10,7 @@ public class BackgroundClickDetector : MonoBehaviour
     }
     void OnMouseDown()
     {
-        if (GameManager.Instance.createManager.createMode == CreateMode.Radar)
+        if (GameManager.Instance.editManager.editMode == EditMode.CreateRadar)
         {
             _radarSpawner.GetComponent<RadarSpawner>().SpawnRadarOnMousePosition();
         }
