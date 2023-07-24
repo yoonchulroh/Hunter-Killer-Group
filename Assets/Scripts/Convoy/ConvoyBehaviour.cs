@@ -10,12 +10,6 @@ public class ConvoyBehaviour : MonoBehaviour
     private GameObject _destroyedConvoyCollectionObject;
     private Rigidbody2D _rigidBody2D;
 
-    private int _hp = 100;
-    public int hp => _hp;
-    private bool _destroyed = false;
-    public bool destroyed => _destroyed;
-
-
     private int _currentPortID;
     private int _nextPortID;
     private Vector3 _destination; // coordinates of _nextPortID
@@ -27,7 +21,12 @@ public class ConvoyBehaviour : MonoBehaviour
 
     private bool _routeFound;
 
+    private int _hp = 100;
+    public int hp => _hp;
+
     private float _speed;
+    private float _resourceAmount = 10f;
+    public float resourceAmount => _resourceAmount;
 
     private int _id;
     public int id => _id;
@@ -51,12 +50,12 @@ public class ConvoyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (_routeFound && !_destroyed)
+        if (_routeFound)
         {
             SetVelocity();
             CheckArrivedAtDestination(0.1f);
         }
-        else if (!_destroyed)
+        else
         {
             _routeFound = SetNextDestination();
             if (!_routeFound)
@@ -108,17 +107,6 @@ public class ConvoyBehaviour : MonoBehaviour
         var destroyedConvoy = Instantiate<GameObject>(_destroyedConvoyPrefab, transform.position, Quaternion.identity);
         destroyedConvoy.transform.SetParent(_destroyedConvoyCollectionObject.transform, false);
         Destroy(gameObject);
-        /*
-        _destroyed = true;
-        _speed = 0f;
-        _rigidBody2D.velocity = new Vector3(0, 0, 0);
-        GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
-
-
-        var currentPosition = transform.position;
-        currentPosition.z = 1;
-        transform.position = currentPosition;
-        */
     }
 
     private void CheckArrivedAtDestination(float allowedRange)
@@ -128,6 +116,7 @@ public class ConvoyBehaviour : MonoBehaviour
             _currentPortID = _nextPortID;
             if (_currentPortID == _destinationPortID)
             {
+                GameManager.Instance.portManager.portDict[_destinationPortID].GetComponent<PortBehaviour>().ResourceFilled(_resourceAmount);
                 Destroy(gameObject);
             }
             else

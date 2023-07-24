@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public enum ParentType
     {
@@ -39,7 +40,7 @@ public class LabelTextBehaviour : MonoBehaviour
         switch(parentType)
         {
             case (ParentType.Convoy):
-                GetComponent<TextMeshPro>().text = "Carrying " + parent.GetComponent<ConvoyBehaviour>().resourceType;
+                GetComponent<TextMeshPro>().text = "Carrying " + Convert.ToString(parent.GetComponent<ConvoyBehaviour>().resourceAmount) + " " + parent.GetComponent<ConvoyBehaviour>().resourceType;
                 break;
             case (ParentType.Port):
                 GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().portType + " of " + parent.GetComponent<PortBehaviour>().resourceType;
@@ -47,5 +48,10 @@ public class LabelTextBehaviour : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void SetResourceAmountLabel(float resourceAmount)
+    {
+        GetComponent<TextMeshPro>().text = Convert.ToString(Math.Round(Convert.ToDouble(resourceAmount), 0));
     }
 }
