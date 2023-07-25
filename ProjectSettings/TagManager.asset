@@ -16,6 +16,8 @@ TagManager:
   - DestroyedConvoy
   - Radar
   - RadarSpawner
+  - EscortSpawner
+  - Escort
   layers:
   - Default
   - TransparentFX

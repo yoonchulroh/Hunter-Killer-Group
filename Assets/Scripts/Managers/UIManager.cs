@@ -24,6 +24,11 @@ public class UIManager : MonoBehaviour
         _editManager.SwitchEditMode(EditMode.CreateRadar);
     }
 
+    public void OnClickEscortButton()
+    {
+        _editManager.SwitchEditMode(EditMode.CreateEscort);
+    }
+
     public void OnClickDeleteButton()
     {
         _editManager.SwitchEditMode(EditMode.Delete);
