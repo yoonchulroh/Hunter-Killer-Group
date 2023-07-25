@@ -13,7 +13,7 @@ public class RadarOriginBehaviour : MonoBehaviour
     {
         if (GameManager.Instance.editManager.editMode == EditMode.Delete)
         {
-            _parent.GetComponent<RadarBehaviour>().RemoveRadar();
+            _parent.GetComponent<StationaryRadarBehaviour>().RemoveRadar();
         }
     }
 }

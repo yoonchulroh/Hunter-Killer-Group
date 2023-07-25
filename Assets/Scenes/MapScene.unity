@@ -283,7 +283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195849196}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _escortPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
-  _radarPrefab: {fileID: 8548935168195070218, guid: 790f3949c1fbd4572ab1ce4df85d2f56, type: 3}
+  _shipRadarPrefab: {fileID: 8548935168195070218, guid: 790f3949c1fbd4572ab1ce4df85d2f56, type: 3}
 --- !u!1 &205295776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,7 +1072,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.2706924, g: 0.44791788, b: 0.7264151, a: 0}
+  m_BackGroundColor: {r: 0.16629584, g: 0.57777876, b: 0.9528302, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1311,8 +1311,8 @@ GameObject:
   - component: {fileID: 761748819}
   - component: {fileID: 761748820}
   m_Layer: 0
-  m_Name: Radars
-  m_TagString: RadarSpawner
+  m_Name: StationaryRadars
+  m_TagString: StationaryRadarSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1344,7 +1344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684eac44f8c3f41128856b31edb1d534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radarPrefab: {fileID: 8548935168195070218, guid: b4dcce9a67e364823b3cfff6469eee39, type: 3}
+  _stationaryRadarPrefab: {fileID: 8548935168195070218, guid: b4dcce9a67e364823b3cfff6469eee39, type: 3}
 --- !u!1 &1083773959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,8 +1468,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1152892108}
   m_Layer: 0
-  m_Name: DestroyedConvoys
-  m_TagString: DestroyedConvoyCollection
+  m_Name: DestroyedEntities
+  m_TagString: DestroyedEntityCollection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

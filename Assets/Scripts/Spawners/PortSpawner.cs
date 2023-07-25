@@ -23,7 +23,7 @@ public class PortSpawner : MonoBehaviour
     {
         var port = Instantiate<GameObject>(_portPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         port.transform.SetParent(gameObject.transform);
-        port.GetComponent<PortBehaviour>().SetCoordinate(new Vector3(xPos, yPos, 0));
+        port.GetComponent<PortBehaviour>().SetCoordinate(new Vector3(xPos, yPos, -1));
         port.GetComponent<PortBehaviour>().SetID(ID);
         port.GetComponent<PortBehaviour>().SetPortRole(portType, resourceType);
         _portManager.AddNewPort(ID, port, portType, resourceType);

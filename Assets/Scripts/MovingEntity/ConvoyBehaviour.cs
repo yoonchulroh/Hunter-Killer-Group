@@ -24,7 +24,6 @@ public class ConvoyBehaviour : MovingEntityBehaviour
     public override void Start()
     {
         base.Start();
-        _destroyedEntityCollectionObject = GameObject.FindWithTag("DestroyedConvoyCollection");
 
         var nameText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
         nameText.transform.SetParent(gameObject.transform, false);

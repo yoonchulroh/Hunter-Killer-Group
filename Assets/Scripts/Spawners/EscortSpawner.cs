@@ -5,7 +5,7 @@ using UnityEngine;
 public class EscortSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _escortPrefab;
-    [SerializeField] private GameObject _radarPrefab;
+    [SerializeField] private GameObject _shipRadarPrefab;
     private float _range = 10f;
 
     void Start()
@@ -29,9 +29,9 @@ public class EscortSpawner : MonoBehaviour
 
     public void SpawnRadarOnShip(GameObject ship)
     {
-        var radar = Instantiate<GameObject>(_radarPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        var radar = Instantiate<GameObject>(_shipRadarPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         radar.transform.SetParent(ship.transform, false);
         radar.transform.localScale = new Vector3(_range, _range, _range);
-        radar.GetComponent<RadarBehaviour>().SetShipParent(ship);
+        radar.GetComponent<ShipRadarBehaviour>().SetShipParent(ship);
     }
 }

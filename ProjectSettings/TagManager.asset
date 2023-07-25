@@ -12,12 +12,13 @@ TagManager:
   - Port
   - Seaway
   - Uboat
-  - DestroyedConvoyCollection
   - DestroyedConvoy
-  - Radar
-  - RadarSpawner
   - EscortSpawner
   - Escort
+  - DestroyedEntityCollection
+  - StationaryRadar
+  - StationaryRadarSpawner
+  - ShipRadar
   layers:
   - Default
   - TransparentFX

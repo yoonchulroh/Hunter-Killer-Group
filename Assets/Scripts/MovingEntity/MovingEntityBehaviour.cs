@@ -27,6 +27,7 @@ public class MovingEntityBehaviour : MonoBehaviour
     public virtual void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
+        _destroyedEntityCollectionObject = GameObject.FindWithTag("DestroyedEntityCollection");
     }
 
     public void SetSpeed(float speed)

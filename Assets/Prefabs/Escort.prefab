@@ -136,3 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cd5baa9c3c543249210aeeb6eb767c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
+  _destroyedEntityPrefab: {fileID: 5117912662991318639, guid: 2518c466d12cc41efa317908178093da, type: 3}
+  speed: 0
+  hp: 0

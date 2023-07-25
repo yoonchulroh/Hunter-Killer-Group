@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6776263500429236891}
   - component: {fileID: 3896854292239278916}
-  - component: {fileID: -4366070709571959269}
   - component: {fileID: 4863776355526230194}
   - component: {fileID: 8810302922357407468}
+  - component: {fileID: 4974150213434901388}
   m_Layer: 0
   m_Name: ShipRadar
-  m_TagString: Untagged
+  m_TagString: ShipRadar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,19 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-4366070709571959269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8548935168195070218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5d48a67d8f5403e8bd9754a21bcd00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _radarOriginPrefab: {fileID: 101594546746212449, guid: 7c3109bd4ce3a4c05af51dbdb13e4899, type: 3}
 --- !u!58 &4863776355526230194
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -137,3 +124,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4974150213434901388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8548935168195070218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae6137f37bf4416faaa7bff1df83b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
