@@ -23,4 +23,9 @@ public class UIManager : MonoBehaviour
     {
         _editManager.SwitchEditMode(EditMode.CreateRadar);
     }
+
+    public void OnClickDeleteButton()
+    {
+        _editManager.SwitchEditMode(EditMode.Delete);
+    }
 }
