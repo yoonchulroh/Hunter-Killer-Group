@@ -10,6 +10,7 @@ public class RadarBehaviour : MonoBehaviour
     private GameObject _parent;
 
     private GameObject _radarOrigin;
+    private Vector3 _originalPosition;
 
     void Update()
     {
@@ -17,10 +18,15 @@ public class RadarBehaviour : MonoBehaviour
         {
             transform.position = _parent.transform.position;
         }
+        else
+        {
+            transform.position = _originalPosition;
+        }
     }
 
     public void CreateRadarOrigin()
     {
+        _originalPosition = transform.position;
         var radarOriginPosition = transform.position;
         radarOriginPosition.z = -1f;
         _radarOrigin = Instantiate<GameObject>(_radarOriginPrefab, radarOriginPosition, Quaternion.identity);

@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _escortPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
-  _radarPrefab: {fileID: 8548935168195070218, guid: b4dcce9a67e364823b3cfff6469eee39, type: 3}
+  _radarPrefab: {fileID: 8548935168195070218, guid: 790f3949c1fbd4572ab1ce4df85d2f56, type: 3}
 --- !u!1 &205295776
 GameObject:
   m_ObjectHideFlags: 0

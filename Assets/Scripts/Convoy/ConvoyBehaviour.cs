@@ -3,16 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ConvoyBehaviour : MonoBehaviour
+public class ConvoyBehaviour : MovingEntityBehaviour
 {
-    [SerializeField] private GameObject _labelPrefab;
-    [SerializeField] private GameObject _destroyedConvoyPrefab;
-    private GameObject _destroyedConvoyCollectionObject;
-    private Rigidbody2D _rigidBody2D;
-
     private int _currentPortID;
     private int _nextPortID;
-    private Vector3 _destination; // coordinates of _nextPortID
 
     private int _originPortID;
     public int originPortID => _originPortID;
@@ -21,23 +15,16 @@ public class ConvoyBehaviour : MonoBehaviour
 
     private bool _routeFound;
 
-    private int _hp = 100;
-    public int hp => _hp;
-
-    private float _speed;
-    private float _resourceAmount = 10f;
-    public float resourceAmount => _resourceAmount;
-
-    private int _id;
-    public int id => _id;
-
     private ResourceType _resourceType;
     public ResourceType resourceType => _resourceType;
 
-    private void Start()
+    private float _resourceAmount = 10f;
+    public float resourceAmount => _resourceAmount;
+
+    public override void Start()
     {
-        _rigidBody2D = GetComponent<Rigidbody2D>();
-        _destroyedConvoyCollectionObject = GameObject.FindWithTag("DestroyedConvoyCollection");
+        base.Start();
+        _destroyedEntityCollectionObject = GameObject.FindWithTag("DestroyedConvoyCollection");
 
         var nameText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
         nameText.transform.SetParent(gameObject.transform, false);
@@ -78,38 +65,12 @@ public class ConvoyBehaviour : MonoBehaviour
         _routeFound = SetNextDestination();
     }
 
-    public void SetSpeed(float speed)
-    {
-        _speed = speed;
-    }
-
-    public void SetID(int id)
-    {
-        _id = id;
-    }
-
     public void SetRole(ResourceType resourceType)
     {
         _resourceType = resourceType;
     }
 
-    public void Attacked(int damage)
-    {
-        _hp -= damage;
-        if (_hp <= 0)
-        {
-            Destroyed();
-        }
-    }
-
-    private void Destroyed()
-    {
-        var destroyedConvoy = Instantiate<GameObject>(_destroyedConvoyPrefab, transform.position, Quaternion.identity);
-        destroyedConvoy.transform.SetParent(_destroyedConvoyCollectionObject.transform, false);
-        Destroy(gameObject);
-    }
-
-    private void CheckArrivedAtDestination(float allowedRange)
+    public override void CheckArrivedAtDestination(float allowedRange)
     {
         if (Math.Abs(transform.position.x - _destination.x) < allowedRange && Math.Abs(transform.position.y - _destination.y) < allowedRange)
         {
