@@ -9,6 +9,15 @@ public class EscortBehaviour : MovingEntityBehaviour
     public override void Start()
     {
         base.Start();
+
+        var nameText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        nameText.transform.SetParent(gameObject.transform, false);
+        nameText.GetComponent<LabelTextBehaviour>().SetNameLabel(gameObject, ParentType.Escort);
+
+        var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
+        roleText.transform.SetParent(gameObject.transform, false);
+        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Escort);
+
         SetDestinationRandomly();
     }
 

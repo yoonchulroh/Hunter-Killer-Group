@@ -13,6 +13,8 @@ public class MovingEntityBehaviour : MonoBehaviour
 
     protected GameObject _destroyedEntityCollectionObject;
 
+    protected GameObject _hpText;
+
     protected float _speed;
     public float speed;
 
@@ -28,16 +30,25 @@ public class MovingEntityBehaviour : MonoBehaviour
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _destroyedEntityCollectionObject = GameObject.FindWithTag("DestroyedEntityCollection");
-    }
 
-    public void SetSpeed(float speed)
-    {
-        _speed = speed;
+        _hpText = Instantiate<GameObject>(_labelPrefab, new Vector3(-2, 0, 0), Quaternion.identity);
+        _hpText.transform.SetParent(gameObject.transform, false);
+        _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_hp);
     }
 
     public void SetID(int id)
     {
         _id = id;
+    }
+    
+    public void SetSpeed(float speed)
+    {
+        _speed = speed;
+    }
+
+    public void SetHp(int hp)
+    {
+        _hp = hp;
     }
 
     public void SetDestinationRandomly()
@@ -56,6 +67,7 @@ public class MovingEntityBehaviour : MonoBehaviour
     public void Attacked(int damage)
     {
         _hp -= damage;
+        _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_hp);
         if (_hp <= 0)
         {
             Destroyed();

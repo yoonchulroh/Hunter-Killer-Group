@@ -58,7 +58,7 @@ public class PortBehaviour : MonoBehaviour
 
         if (_portType == PortType.Consumer)
         {
-            var resourceNeedLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(1, 0, 0), Quaternion.identity);
+            var resourceNeedLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(1.5f, 0, 0), Quaternion.identity);
             resourceNeedLabel.transform.SetParent(gameObject.transform, false);
             resourceNeedLabel.GetComponent<LabelTextBehaviour>().SetResourceAmountLabel(_resourceNeed);
 

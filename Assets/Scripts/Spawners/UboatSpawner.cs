@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class UboatSpawner : MonoBehaviour
+public class UboatSpawner : MovingEntitySpawner
 {
-    [SerializeField] private GameObject _uboatPrefab;
 
     void Start()
     {
-        for (int i = 0; i < 5; ++i)
+        for (int i = 1; i < 6; ++i)
         {
             SpawnUboat(i, Random.Range(-40, 40), Random.Range(-40, 40));
         }
@@ -19,11 +18,7 @@ public class UboatSpawner : MonoBehaviour
     {
         var initialPosition = new Vector3(xPos, yPos, 0);
 
-        var uboat = Instantiate<GameObject>(_uboatPrefab, initialPosition, Quaternion.identity);
-        uboat.transform.SetParent(gameObject.transform);
+        var uboat = SpawnEntity(initialPosition, id, 3f, 100);
         GameManager.Instance.uboatManager.AddNewUboat(id, uboat);
-
-        uboat.GetComponent<UboatBehaviour>().SetID(id);
-        uboat.GetComponent<UboatBehaviour>().SetSpeed(5f);
     }
 }
