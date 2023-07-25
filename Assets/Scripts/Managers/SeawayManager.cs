@@ -53,6 +53,24 @@ public class SeawayManager : MonoBehaviour
         return exists;
     }
 
+    public void RemoveSeaway(int end1, int end2)
+    {
+        _seawayDict[end1].RemoveAt(ReturnIndexOfDestinationInList(end1, end2));
+        _seawayDict[end2].RemoveAt(ReturnIndexOfDestinationInList(end2, end1));
+    }
+
+    private int ReturnIndexOfDestinationInList(int origin, int destination)
+    {
+        for (int i = 0; i < _seawayDict[origin].Count; ++i)
+        {
+            if (Convert.ToUInt32(_seawayDict[origin][i][0]) == destination)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private bool CheckDestinationInList(int origin, int destination)
     {
         try
