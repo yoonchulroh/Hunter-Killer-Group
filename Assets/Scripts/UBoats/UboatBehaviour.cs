@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class UboatBehaviour : MonoBehaviour
+public class UboatBehaviour : MovingEntityBehaviour
 {
     private enum TravelMode
     {
@@ -12,13 +12,7 @@ public class UboatBehaviour : MonoBehaviour
         TrackConvoy
     }
     [SerializeField] private GameObject _detectorForUboatBehaviour;
-    private Rigidbody2D _rigidBody2D;
 
-    private int _id;
-    public int id => _id;
-
-    private float _speed;
-    private Vector3 _destination;
     private TravelMode _travelMode;
 
     private List<GameObject> _detectedConvoys = new List<GameObject>();
@@ -26,9 +20,9 @@ public class UboatBehaviour : MonoBehaviour
     private int _attack = 34;
     private float _attackPeriod = 0.25f;
 
-    private void Start()
+    public override void Start()
     {
-        _rigidBody2D = GetComponent<Rigidbody2D>();
+        base.Start();
 
         var detectorForUboat = Instantiate<GameObject>(_detectorForUboatBehaviour, new Vector3(0, 0, 0), Quaternion.identity);
         detectorForUboat.GetComponent<DetectorForUboatBehaviour>().SetParent(gameObject);
@@ -82,16 +76,6 @@ public class UboatBehaviour : MonoBehaviour
         }
     }
 
-    public void SetID(int id)
-    {
-        _id = id;
-    }
-
-    public void SetSpeed(float speed)
-    {
-        _speed = speed;
-    }
-
     public void Reveal()
     {
         GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
@@ -102,7 +86,7 @@ public class UboatBehaviour : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
     }
 
-    private void CheckArrivedAtDestination(float allowedRange)
+    public override void CheckArrivedAtDestination(float allowedRange)
     {
         if (Math.Abs(transform.position.x - _destination.x) < allowedRange && Math.Abs(transform.position.y - _destination.y) < allowedRange)
         {
@@ -111,11 +95,6 @@ public class UboatBehaviour : MonoBehaviour
                 SetDestinationRandomly();
             }
         }
-    }
-
-    public void SetDestinationRandomly()
-    {
-        _destination = new Vector3(Random.Range(-40, 40), Random.Range(-20, 20), 0f);
     }
 
     private void SetDestinationOnClosestConvoy()
