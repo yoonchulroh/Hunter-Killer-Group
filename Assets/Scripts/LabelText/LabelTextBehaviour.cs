@@ -5,7 +5,10 @@ using System;
 public enum ParentType
     {
         Convoy,
-        Port
+        Port,
+        Uboat,
+        Escort,
+        StationarRadar
     }
 
 public class LabelTextBehaviour : MonoBehaviour
@@ -30,6 +33,12 @@ public class LabelTextBehaviour : MonoBehaviour
             case (ParentType.Port):
                 GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().alphabetID.ToString();
                 break;
+            case (ParentType.Uboat):
+                GetComponent<TextMeshPro>().text = "U-" + parent.GetComponent<UboatBehaviour>().id.ToString();
+                break;
+            case (ParentType.Escort):
+                GetComponent<TextMeshPro>().text = "DD-" + parent.GetComponent<EscortBehaviour>().id.ToString();
+                break;
             default:
                 break;
         }
@@ -45,6 +54,12 @@ public class LabelTextBehaviour : MonoBehaviour
             case (ParentType.Port):
                 GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().portType + " of " + parent.GetComponent<PortBehaviour>().resourceType;
                 break;
+            case (ParentType.Uboat):
+                GetComponent<TextMeshPro>().text = "Type VII";
+                break;
+            case (ParentType.Escort):
+                GetComponent<TextMeshPro>().text = "Clemson-class";
+                break;
             default:
                 break;
         }
@@ -53,5 +68,10 @@ public class LabelTextBehaviour : MonoBehaviour
     public void SetResourceAmountLabel(float resourceAmount)
     {
         GetComponent<TextMeshPro>().text = Convert.ToString(Math.Round(Convert.ToDouble(resourceAmount), 0));
+    }
+
+    public void SetHpLabel(int hp)
+    {
+        GetComponent<TextMeshPro>().text = Convert.ToString(hp);
     }
 }

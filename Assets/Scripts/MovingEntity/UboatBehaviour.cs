@@ -17,12 +17,20 @@ public class UboatBehaviour : MovingEntityBehaviour
 
     private List<GameObject> _detectedConvoys = new List<GameObject>();
 
-    private int _attack = 34;
+    private int _attack = 5;
     private float _attackPeriod = 0.25f;
 
     public override void Start()
     {
         base.Start();
+
+        var nameText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        nameText.transform.SetParent(gameObject.transform, false);
+        nameText.GetComponent<LabelTextBehaviour>().SetNameLabel(gameObject, ParentType.Uboat);
+
+        var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
+        roleText.transform.SetParent(gameObject.transform, false);
+        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Uboat);
 
         var detectorForUboat = Instantiate<GameObject>(_detectorForUboatBehaviour, new Vector3(0, 0, 0), Quaternion.identity);
         detectorForUboat.GetComponent<DetectorForUboatBehaviour>().SetParent(gameObject);

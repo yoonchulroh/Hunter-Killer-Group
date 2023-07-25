@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3dd76e43aa1c453c9708078bbe6a2e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _escortPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
+  _entityPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
   _shipRadarPrefab: {fileID: 8548935168195070218, guid: 790f3949c1fbd4572ab1ce4df85d2f56, type: 3}
 --- !u!1 &205295776
 GameObject:
@@ -629,6 +629,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90fea9e262a7e4e888672ffce5f405cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &334572935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 334572936}
+  - component: {fileID: 334572937}
+  m_Layer: 0
+  m_Name: EscortManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &334572936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334572935}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1484151865}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &334572937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334572935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce0143134648495e92cf920917c99cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &386049046
@@ -1518,8 +1562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be2b04c3c0aa456e8141676f1ea0300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _portSpawner: {fileID: 1083773959}
-  _convoyPrefab: {fileID: 4974811147804403922, guid: 5d63a8363224246448180019c6898277, type: 3}
+  _entityPrefab: {fileID: 4974811147804403922, guid: 5d63a8363224246448180019c6898277, type: 3}
 --- !u!4 &1199364393
 Transform:
   m_ObjectHideFlags: 0
@@ -1894,6 +1937,7 @@ Transform:
   - {fileID: 297886751}
   - {fileID: 205295777}
   - {fileID: 734951284}
+  - {fileID: 334572936}
   - {fileID: 1990126138}
   m_Father: {fileID: 0}
   m_RootOrder: 9
@@ -2196,7 +2240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872d9c29a431340ddb2cdf88caf83cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uboatPrefab: {fileID: 8864324125116364823, guid: 5ee50e7eb575b42c6ae48329b50b884f, type: 3}
+  _entityPrefab: {fileID: 8864324125116364823, guid: 5ee50e7eb575b42c6ae48329b50b884f, type: 3}
 --- !u!4 &1931585056
 Transform:
   m_ObjectHideFlags: 0
@@ -2500,7 +2544,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1484151865}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1990126139
 MonoBehaviour:
