@@ -37,7 +37,7 @@ public class EscortBehaviour : MovingEntityBehaviour
     void Update()
     {
         var currentPosition = transform.position;
-        var directionalVector = _speed * (_destination - currentPosition).normalized;
+        var directionalVector = _movingEntityData.speed * (_destination - currentPosition).normalized;
         _rigidBody2D.velocity = directionalVector;
 
         if (_travelMode == EscortTravelMode.Random)
@@ -79,11 +79,11 @@ public class EscortBehaviour : MovingEntityBehaviour
         while (true)
         {
             closestUboat = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position);
-            if (closestUboat != null && Vector3.Distance(closestUboat.transform.position, transform.position) < _attackRange)
+            if (closestUboat != null && Vector3.Distance(closestUboat.transform.position, transform.position) < _movingEntityData.attackRange)
             {
-                closestUboat.GetComponent<MovingEntityBehaviour>().Attacked(_attack);
+                closestUboat.GetComponent<MovingEntityBehaviour>().Attacked(_movingEntityData.attack);
             }
-            yield return new WaitForSeconds(_attackPeriod);
+            yield return new WaitForSeconds(_movingEntityData.attackPeriod);
         }
     }
 }

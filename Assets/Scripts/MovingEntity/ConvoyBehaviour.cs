@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class ConvoyBehaviour : MovingEntityBehaviour
 {
+    private Dictionary<GameObject, int> _detectedUboatCountDict => GameManager.Instance.detectionManager.detectedUboatCountDict;
+
     private int _currentPortID;
     private int _nextPortID;
 
@@ -32,6 +34,8 @@ public class ConvoyBehaviour : MovingEntityBehaviour
         var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleText.transform.SetParent(gameObject.transform, false);
         roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Convoy);
+
+        StartCoroutine(AttackClosestUboat());
     }
 
     private void Update()
@@ -86,10 +90,24 @@ public class ConvoyBehaviour : MovingEntityBehaviour
         }
     }
 
+    private IEnumerator AttackClosestUboat()
+    {
+        GameObject closestUboat = null;
+        while (true)
+        {
+            closestUboat = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position);
+            if (closestUboat != null && Vector3.Distance(closestUboat.transform.position, transform.position) < _movingEntityData.attackRange)
+            {
+                closestUboat.GetComponent<MovingEntityBehaviour>().Attacked(_movingEntityData.attack);
+            }
+            yield return new WaitForSeconds(_movingEntityData.attackPeriod);
+        }
+    }
+
     private void SetVelocity()
     {
         var currentPosition = transform.position;
-        var directionalVector = _speed * (_destination - currentPosition).normalized;
+        var directionalVector = _movingEntityData.speed * (_destination - currentPosition).normalized;
         _rigidBody2D.velocity = directionalVector;
     }
 

@@ -42,7 +42,7 @@ public class UboatBehaviour : MovingEntityBehaviour
     private void Update()
     {
         var currentPosition = transform.position;
-        var directionalVector = _speed * (_destination - currentPosition).normalized;
+        var directionalVector = _movingEntityData.speed * (_destination - currentPosition).normalized;
         _rigidBody2D.velocity = directionalVector;
 
         if (_travelMode == UboatTravelMode.Random)
@@ -105,11 +105,11 @@ public class UboatBehaviour : MovingEntityBehaviour
         while (true)
         {
             closestFriendly = GameManager.Instance.detectionManager.ClosestDetectedFriendly(transform.position);
-            if (closestFriendly != null && Vector3.Distance(closestFriendly.transform.position, transform.position) < _attackRange)
+            if (closestFriendly != null && Vector3.Distance(closestFriendly.transform.position, transform.position) < _movingEntityData.attackRange)
             {
-                closestFriendly.GetComponent<MovingEntityBehaviour>().Attacked(_attack);
+                closestFriendly.GetComponent<MovingEntityBehaviour>().Attacked(_movingEntityData.attack);
             }
-            yield return new WaitForSeconds(_attackPeriod);
+            yield return new WaitForSeconds(_movingEntityData.attackPeriod);
         }
     }
 }
