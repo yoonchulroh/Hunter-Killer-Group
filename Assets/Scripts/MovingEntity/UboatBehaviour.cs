@@ -6,19 +6,16 @@ using Random = UnityEngine.Random;
 
 public class UboatBehaviour : MovingEntityBehaviour
 {
-    private enum TravelMode
+    private enum UboatTravelMode
     {
         Random,
-        TrackConvoy
+        TrackFriendly
     }
-    [SerializeField] private GameObject _detectorForUboatBehaviour;
+    [SerializeField] private GameObject _detectorForUboatPrefab;
 
-    private TravelMode _travelMode;
+    private UboatTravelMode _travelMode;
 
-    private List<GameObject> _detectedConvoys = new List<GameObject>();
-
-    private int _attack = 5;
-    private float _attackPeriod = 0.25f;
+    private Dictionary<GameObject, int> _detectedFriendlyCountDict => GameManager.Instance.detectionManager.detectedFriendlyCountDict;
 
     public override void Start()
     {
@@ -32,14 +29,14 @@ public class UboatBehaviour : MovingEntityBehaviour
         roleText.transform.SetParent(gameObject.transform, false);
         roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Uboat);
 
-        var detectorForUboat = Instantiate<GameObject>(_detectorForUboatBehaviour, new Vector3(0, 0, 0), Quaternion.identity);
+        var detectorForUboat = Instantiate<GameObject>(_detectorForUboatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         detectorForUboat.GetComponent<DetectorForUboatBehaviour>().SetParent(gameObject);
         detectorForUboat.transform.SetParent(gameObject.transform, false);
 
-        _travelMode = TravelMode.Random;
+        _travelMode = UboatTravelMode.Random;
         SetDestinationRandomly();
 
-        StartCoroutine(AttackClosestConvoy());
+        StartCoroutine(AttackClosestFriendly());
     }
 
     private void Update()
@@ -48,39 +45,24 @@ public class UboatBehaviour : MovingEntityBehaviour
         var directionalVector = _speed * (_destination - currentPosition).normalized;
         _rigidBody2D.velocity = directionalVector;
 
-        //setting new destination coordinates
-        if (_travelMode == TravelMode.Random)
+        if (_travelMode == UboatTravelMode.Random)
         {
             CheckArrivedAtDestination(0.1f);
         }
-        
-        if (_detectedConvoys.Count == 0 && _travelMode == TravelMode.TrackConvoy)
-        {
-            _travelMode = TravelMode.Random;
-            SetDestinationRandomly();
-        }
 
-        if (_detectedConvoys.Count > 0)
+        //setting new destination coordinates
+        if (_detectedFriendlyCountDict.Count > 0)
         {
-            _travelMode = TravelMode.TrackConvoy;
-            SetDestinationOnClosestConvoy();
+            _travelMode = UboatTravelMode.TrackFriendly;
+            SetDestinationOnClosestFriendly();
         }
-    }
-
-    public void CollisionEnter(Collider2D collision)
-    {   
-        if (collision.gameObject.tag == "Convoy")
+        else
         {
-            Debug.Assert(!_detectedConvoys.Contains(collision.gameObject));
-            _detectedConvoys.Add(collision.gameObject);
-        }
-    }
-
-    public void CollisionExit(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Convoy")
-        {
-            _detectedConvoys.Remove(collision.gameObject);
+            if (_travelMode != UboatTravelMode.Random)
+            {
+                _travelMode = UboatTravelMode.Random;
+                SetDestinationRandomly();
+            }
         }
     }
 
@@ -98,48 +80,36 @@ public class UboatBehaviour : MovingEntityBehaviour
     {
         if (Math.Abs(transform.position.x - _destination.x) < allowedRange && Math.Abs(transform.position.y - _destination.y) < allowedRange)
         {
-            if (_travelMode == TravelMode.Random)
+            if (_travelMode == UboatTravelMode.Random)
             {
                 SetDestinationRandomly();
             }
         }
     }
 
-    private void SetDestinationOnClosestConvoy()
+    private bool SetDestinationOnClosestFriendly()
     {
-        _destination = ClosestDetectedConvoy().transform.position;
+        _destination = GameManager.Instance.detectionManager.ClosestDetectedFriendly(transform.position).transform.position;
+
+        if (_destination == null)
+        {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    private IEnumerator AttackClosestConvoy()
+    private IEnumerator AttackClosestFriendly()
     {
+        GameObject closestFriendly = null;
         while (true)
         {
-            if (_detectedConvoys.Count > 0)
+            closestFriendly = GameManager.Instance.detectionManager.ClosestDetectedFriendly(transform.position);
+            if (closestFriendly != null && Vector3.Distance(closestFriendly.transform.position, transform.position) < _attackRange)
             {
-                ClosestDetectedConvoy().GetComponent<ConvoyBehaviour>().Attacked(_attack);
+                closestFriendly.GetComponent<MovingEntityBehaviour>().Attacked(_attack);
             }
             yield return new WaitForSeconds(_attackPeriod);
-        }
-    }
-
-    private GameObject ClosestDetectedConvoy()
-    {
-        if (_detectedConvoys.Count == 0)
-        {
-            return null;
-        }
-        else
-        {
-            var closestConvoy = _detectedConvoys[0];
-
-            foreach (GameObject convoy in _detectedConvoys)
-            {
-                if (Vector3.Distance(transform.position, convoy.transform.position) < Vector3.Distance(transform.position, closestConvoy.transform.position))
-                {
-                    closestConvoy = convoy;
-                }
-            }
-            return closestConvoy;
         }
     }
 }

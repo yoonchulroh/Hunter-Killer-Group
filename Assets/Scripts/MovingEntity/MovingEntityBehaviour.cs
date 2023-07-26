@@ -20,11 +20,20 @@ public class MovingEntityBehaviour : MonoBehaviour
 
     protected Vector3 _destination;
 
+    protected int _id;
+    public int id => _id;
+
     protected int _hp;
     public int hp;
 
-    protected int _id;
-    public int id => _id;
+    protected int _attack = 5;
+    public int attack => _attack;
+
+    protected float _attackPeriod;
+    public float attackPeriod => _attackPeriod;
+
+    protected float _attackRange;
+    public float attackRange => _attackRange;
 
     public virtual void Start()
     {
@@ -36,19 +45,18 @@ public class MovingEntityBehaviour : MonoBehaviour
         _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_hp);
     }
 
-    public void SetID(int id)
+    public void SetMovingEntityProperties(int id, int hp, float speed)
     {
         _id = id;
-    }
-    
-    public void SetSpeed(float speed)
-    {
         _speed = speed;
+        _hp = hp;
     }
 
-    public void SetHp(int hp)
+    public void SetMovingEntityAttackProperties(int attack, float attackPeriod, float attackRange)
     {
-        _hp = hp;
+        _attack = attack;
+        _attackPeriod = attackPeriod;
+        _attackRange = attackRange;
     }
 
     public void SetDestinationRandomly()

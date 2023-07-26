@@ -18,7 +18,7 @@ public class UboatSpawner : MovingEntitySpawner
     {
         var initialPosition = new Vector3(xPos, yPos, 0);
 
-        var uboat = SpawnEntity(initialPosition, id, 3f, 100);
+        var uboat = SpawnEntity(initialPosition, id, 100, 3f, 5, 0.25f, 2f);
         GameManager.Instance.uboatManager.AddNewUboat(id, uboat);
     }
 }
