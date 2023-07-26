@@ -28,16 +28,16 @@ public class LabelTextBehaviour : MonoBehaviour
         switch(parentType)
         {
             case (ParentType.Convoy):
-                GetComponent<TextMeshPro>().text = ((char) (parent.GetComponent<ConvoyBehaviour>().originPortID + 65)).ToString() + ((char) (parent.GetComponent<ConvoyBehaviour>().destinationPortID + 65)).ToString() + " " + parent.GetComponent<ConvoyBehaviour>().id.ToString();
+                GetComponent<TextMeshPro>().text = ((char) (parent.GetComponent<ConvoyBehaviour>().originPortID + 65)).ToString() + ((char) (parent.GetComponent<ConvoyBehaviour>().destinationPortID + 65)).ToString() + " " + parent.GetComponent<ConvoyBehaviour>().movingEntityData.id.ToString();
                 break;
             case (ParentType.Port):
                 GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().alphabetID.ToString();
                 break;
             case (ParentType.Uboat):
-                GetComponent<TextMeshPro>().text = "U-" + parent.GetComponent<UboatBehaviour>().id.ToString();
+                GetComponent<TextMeshPro>().text = "U-" + parent.GetComponent<UboatBehaviour>().movingEntityData.id.ToString();
                 break;
             case (ParentType.Escort):
-                GetComponent<TextMeshPro>().text = "DD-" + parent.GetComponent<EscortBehaviour>().id.ToString();
+                GetComponent<TextMeshPro>().text = "DD-" + parent.GetComponent<EscortBehaviour>().movingEntityData.id.ToString();
                 break;
             default:
                 break;

@@ -15,25 +15,10 @@ public class MovingEntityBehaviour : MonoBehaviour
 
     protected GameObject _hpText;
 
-    protected float _speed;
-    public float speed;
-
     protected Vector3 _destination;
 
-    protected int _id;
-    public int id => _id;
-
-    protected int _hp;
-    public int hp;
-
-    protected int _attack = 5;
-    public int attack => _attack;
-
-    protected float _attackPeriod;
-    public float attackPeriod => _attackPeriod;
-
-    protected float _attackRange;
-    public float attackRange => _attackRange;
+    protected MovingEntityData _movingEntityData;
+    public MovingEntityData movingEntityData => _movingEntityData;
 
     public virtual void Start()
     {
@@ -42,21 +27,12 @@ public class MovingEntityBehaviour : MonoBehaviour
 
         _hpText = Instantiate<GameObject>(_labelPrefab, new Vector3(-2, 0, 0), Quaternion.identity);
         _hpText.transform.SetParent(gameObject.transform, false);
-        _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_hp);
+        _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_movingEntityData.hp);
     }
 
-    public void SetMovingEntityProperties(int id, int hp, float speed)
+    public void SetMovingEntityProperties(MovingEntityData movingEntityData)
     {
-        _id = id;
-        _speed = speed;
-        _hp = hp;
-    }
-
-    public void SetMovingEntityAttackProperties(int attack, float attackPeriod, float attackRange)
-    {
-        _attack = attack;
-        _attackPeriod = attackPeriod;
-        _attackRange = attackRange;
+        _movingEntityData = movingEntityData;
     }
 
     public void SetDestinationRandomly()
@@ -74,9 +50,9 @@ public class MovingEntityBehaviour : MonoBehaviour
 
     public void Attacked(int damage)
     {
-        _hp -= damage;
-        _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_hp);
-        if (_hp <= 0)
+        _movingEntityData.hp -= damage;
+        _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_movingEntityData.hp);
+        if (_movingEntityData.hp <= 0)
         {
             Destroyed();
         }

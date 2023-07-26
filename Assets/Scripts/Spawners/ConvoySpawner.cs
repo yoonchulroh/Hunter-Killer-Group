@@ -7,7 +7,7 @@ public class ConvoySpawner : MovingEntitySpawner
 {
     private void SpawnConvoy(int convoyID, int originID, int destinationID, ResourceType resourceType)
     {
-        var convoy = SpawnEntity(new Vector3(0, 0, 0), convoyID, 50, 2f, 0, 5f, 0);
+        var convoy = SpawnEntity(new Vector3(0, 0, 0), MovingEntityInitialData.Convoy(convoyID));
         GameManager.Instance.convoyManager.AddNewConvoy(convoyID, convoy);
 
         convoy.GetComponent<ConvoyBehaviour>().SetOrigin(GameManager.Instance.portManager.portDict[originID]);
