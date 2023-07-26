@@ -48,13 +48,13 @@ public class PortBehaviour : MonoBehaviour
 
     void Start()
     {
-        var nameLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
-        nameLabel.transform.SetParent(gameObject.transform, false);
-        nameLabel.GetComponent<LabelTextBehaviour>().SetNameLabel(gameObject, ParentType.Port);
+        var identificationLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        identificationLabel.transform.SetParent(gameObject.transform, false);
+        identificationLabel.GetComponent<LabelTextBehaviour>().SetIdentificationLabel(gameObject);
 
         var roleLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleLabel.transform.SetParent(gameObject.transform, false);
-        roleLabel.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Port);
+        roleLabel.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
 
         if (_portType == PortType.Consumer)
         {

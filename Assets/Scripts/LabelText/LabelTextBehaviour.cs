@@ -2,66 +2,27 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public enum ParentType
-    {
-        Convoy,
-        Port,
-        Uboat,
-        Escort,
-        StationarRadar
-    }
-
 public class LabelTextBehaviour : MonoBehaviour
 {
-
-    private GameObject _parentObject;
-    public GameObject parentObject => _parentObject;
-
-    private ParentType _parentType;
-    public ParentType parentType => _parentType;
-
-    public void SetNameLabel(GameObject parent, ParentType parentType)
+    public void SetIdentificationLabel(GameObject parent)
     {
-        _parentObject = parent;
-        _parentType = parentType;
-
-        switch(parentType)
+        if (parent.tag == "Port")
         {
-            case (ParentType.Convoy):
-                GetComponent<TextMeshPro>().text = ((char) (parent.GetComponent<ConvoyBehaviour>().originPortID + 65)).ToString() + ((char) (parent.GetComponent<ConvoyBehaviour>().destinationPortID + 65)).ToString() + " " + parent.GetComponent<ConvoyBehaviour>().movingEntityData.id.ToString();
-                break;
-            case (ParentType.Port):
-                GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().alphabetID.ToString();
-                break;
-            case (ParentType.Uboat):
-                GetComponent<TextMeshPro>().text = "U-" + parent.GetComponent<UboatBehaviour>().movingEntityData.id.ToString();
-                break;
-            case (ParentType.Escort):
-                GetComponent<TextMeshPro>().text = "DD-" + parent.GetComponent<EscortBehaviour>().movingEntityData.id.ToString();
-                break;
-            default:
-                break;
+            GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().alphabetID.ToString();
+        }
+        else {
+            GetComponent<TextMeshPro>().text = parent.GetComponent<MovingEntityBehaviour>().identification;
         }
     }
 
-    public void SetRoleLabel(GameObject parent, ParentType parentType)
+    public void SetRoleLabel(GameObject parent)
     {
-        switch(parentType)
+        if (parent.tag == "Port")
         {
-            case (ParentType.Convoy):
-                GetComponent<TextMeshPro>().text = "Carrying " + Convert.ToString(parent.GetComponent<ConvoyBehaviour>().resourceAmount) + " " + parent.GetComponent<ConvoyBehaviour>().resourceType;
-                break;
-            case (ParentType.Port):
-                GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().portType + " of " + parent.GetComponent<PortBehaviour>().resourceType;
-                break;
-            case (ParentType.Uboat):
-                GetComponent<TextMeshPro>().text = "Type VII";
-                break;
-            case (ParentType.Escort):
-                GetComponent<TextMeshPro>().text = "Clemson-class";
-                break;
-            default:
-                break;
+            GetComponent<TextMeshPro>().text = parent.GetComponent<PortBehaviour>().portType + " of " + parent.GetComponent<PortBehaviour>().resourceType;
+        }
+        else {
+            GetComponent<TextMeshPro>().text = parent.GetComponent<MovingEntityBehaviour>().role;
         }
     }
 

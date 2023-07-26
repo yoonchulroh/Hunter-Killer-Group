@@ -21,13 +21,16 @@ public class UboatBehaviour : MovingEntityBehaviour
     {
         base.Start();
 
-        var nameText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
-        nameText.transform.SetParent(gameObject.transform, false);
-        nameText.GetComponent<LabelTextBehaviour>().SetNameLabel(gameObject, ParentType.Uboat);
+        _identification = "U-" + movingEntityData.id.ToString();
+        _role = "Type VII";
+
+        var identificationText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        identificationText.transform.SetParent(gameObject.transform, false);
+        identificationText.GetComponent<LabelTextBehaviour>().SetIdentificationLabel(gameObject);
 
         var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleText.transform.SetParent(gameObject.transform, false);
-        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Uboat);
+        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
 
         var detectorForUboat = Instantiate<GameObject>(_detectorForUboatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         detectorForUboat.GetComponent<DetectorForUboatBehaviour>().SetParent(gameObject);

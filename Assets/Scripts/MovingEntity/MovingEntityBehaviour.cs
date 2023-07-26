@@ -20,6 +20,11 @@ public class MovingEntityBehaviour : MonoBehaviour
     protected MovingEntityData _movingEntityData;
     public MovingEntityData movingEntityData => _movingEntityData;
 
+    protected string _identification;
+    public string identification => _identification;
+    protected string _role;
+    public string role => _role;
+
     public virtual void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
@@ -63,5 +68,11 @@ public class MovingEntityBehaviour : MonoBehaviour
         var destroyedEntity = Instantiate<GameObject>(_destroyedEntityPrefab, transform.position, Quaternion.identity);
         destroyedEntity.transform.SetParent(_destroyedEntityCollectionObject.transform, false);
         Destroy(gameObject);
+    }
+
+    void OnMouseDown()
+    {
+        GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
+        GameManager.Instance.editManager.selectedObject = gameObject;
     }
 }
