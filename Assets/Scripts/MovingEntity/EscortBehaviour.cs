@@ -61,6 +61,14 @@ public class EscortBehaviour : MovingEntityBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (_travelMode == EscortTravelMode.Random)
+        {
+            SetDestinationRandomly();
+        }
+    }
+
     private bool SetDestinationOnClosestUboat()
     {
         _destination = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position).transform.position;
