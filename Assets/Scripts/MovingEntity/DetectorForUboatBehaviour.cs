@@ -4,11 +4,7 @@ public class DetectorForUboatBehaviour : MonoBehaviour
 {
     private UboatBehaviour _uboatBehaviour;
     private GameObject _parent;
-
-    void Update()
-    {
-        transform.position = _parent.transform.position;
-    }
+    
     public void SetParent(GameObject parent)
     {
         _parent = parent;

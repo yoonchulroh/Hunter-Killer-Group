@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &2733666073974733811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,8 +122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
   _destroyedEntityPrefab: {fileID: 8816016062198577906, guid: 64a488f76eb484c78bd007684e7b1d86, type: 3}
-  speed: 0
-  hp: 0
 --- !u!58 &-2508896422147249019
 CircleCollider2D:
   m_ObjectHideFlags: 0

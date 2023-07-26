@@ -87,6 +87,14 @@ public class UboatBehaviour : MovingEntityBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (_travelMode == UboatTravelMode.Random)
+        {
+            SetDestinationRandomly();
+        }
+    }
+
     private bool SetDestinationOnClosestFriendly()
     {
         _destination = GameManager.Instance.detectionManager.ClosestDetectedFriendly(transform.position).transform.position;
