@@ -17,11 +17,17 @@ public class DetectorForUboatBehaviour : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        _uboatBehaviour.CollisionEnter(collision);
+        if (collision.gameObject.tag == "Convoy" || collision.gameObject.tag == "Escort")
+        {
+            GameManager.Instance.detectionManager.AddFriendly(collision.gameObject);
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        _uboatBehaviour.CollisionExit(collision);
+        if (collision.gameObject.tag == "Convoy" || collision.gameObject.tag == "Escort")
+        {
+            GameManager.Instance.detectionManager.RemoveFriendly(collision.gameObject);
+        }
     }
 }
