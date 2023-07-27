@@ -73,14 +73,15 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
         Destroy(gameObject);
     }
 
+    void OnMouseDown()
+    {
+        GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
+        GameManager.Instance.editManager.selectedObject = gameObject;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
-            GameManager.Instance.editManager.selectedObject = gameObject;
-        }
-        else if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
             {
