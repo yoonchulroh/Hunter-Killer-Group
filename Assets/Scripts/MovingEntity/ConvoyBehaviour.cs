@@ -76,6 +76,7 @@ public class ConvoyBehaviour : MovingEntityBehaviour
     public void SetRole(ResourceType resourceType)
     {
         _resourceType = resourceType;
+        GetComponent<SpriteRenderer>().color = ResourceData.ResourceTypeToColor(resourceType);
     }
 
     public override void CheckArrivedAtDestination(float allowedRange)

@@ -2,21 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PortType
-{
-    Producer,
-    Consumer,
-    Waypoint
-}
-
-public enum ResourceType
-{
-    Square,
-    Circle,
-    Triangle,
-    Star
-}
-
 public class PortBehaviour : StationaryEntityBehaviour
 {
     [SerializeField] private GameObject _seawayPrefab;
@@ -47,6 +32,7 @@ public class PortBehaviour : StationaryEntityBehaviour
 
     void Start()
     {
+        /*
         var identificationLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
         identificationLabel.transform.SetParent(gameObject.transform, false);
         identificationLabel.GetComponent<LabelTextBehaviour>().SetIdentificationLabel(gameObject);
@@ -54,6 +40,7 @@ public class PortBehaviour : StationaryEntityBehaviour
         var roleLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleLabel.transform.SetParent(gameObject.transform, false);
         roleLabel.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
+        */
 
         if (_portType == PortType.Consumer)
         {
@@ -64,6 +51,7 @@ public class PortBehaviour : StationaryEntityBehaviour
             _resourceNeedLabel = resourceNeedLabel;
         } else if (_portType == PortType.Producer)
         {
+            transform.localScale = new Vector3(2, 2, 2);
             StartCoroutine(SpawnConvoyPeriodically());
         }
     }
@@ -87,6 +75,7 @@ public class PortBehaviour : StationaryEntityBehaviour
     {
         _portType = portType;
         _resourceType = resourceType;
+        GetComponent<SpriteRenderer>().color = ResourceData.ResourceTypeToColor(resourceType);
     }
 
     public void ResourceFilled(float amount)
