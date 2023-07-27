@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.EventSystems;
 
-public class MovingEntityBehaviour : MonoBehaviour
+public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] protected GameObject _labelPrefab;
     [SerializeField] protected GameObject _destroyedEntityPrefab;
@@ -72,9 +73,22 @@ public class MovingEntityBehaviour : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnMouseDown()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
-        GameManager.Instance.editManager.selectedObject = gameObject;
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
+            GameManager.Instance.editManager.selectedObject = gameObject;
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
+            {
+                if (gameObject.tag != "Uboat")
+                {
+                    GameManager.Instance.editManager.selectedObject.GetComponent<EscortBehaviour>().FollowFriendlyOrder(gameObject);
+                }
+            }
+        }
     }
 }

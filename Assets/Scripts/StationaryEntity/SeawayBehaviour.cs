@@ -60,7 +60,7 @@ public class SeawayBehaviour : MonoBehaviour, IPointerClickHandler
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject.tag == "Escort")
+            if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
             {
                 GameManager.Instance.editManager.selectedObject.GetComponent<EscortBehaviour>().PatrolSeawayOrder(_end1coordinates, _end2coordinates);
             }
