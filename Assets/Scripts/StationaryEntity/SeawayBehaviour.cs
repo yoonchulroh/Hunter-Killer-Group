@@ -5,6 +5,7 @@ using UnityEngine;
 public class SeawayBehaviour : MonoBehaviour
 {
     private GameObject _portManager;
+    private GameObject _backgroundClickDetector;
 
     private int _end1;
     private int _end2;
@@ -21,6 +22,7 @@ public class SeawayBehaviour : MonoBehaviour
     void Awake()
     {
         _portManager = GameObject.FindWithTag("PortSpawner");
+        _backgroundClickDetector = GameObject.FindWithTag("BackgroundClickDetector");
     }
 
     void Start()
@@ -48,6 +50,8 @@ public class SeawayBehaviour : MonoBehaviour
         {
             GameManager.Instance.seawayManager.RemoveSeaway(_end1, _end2);
             Destroy(gameObject);
+        } else {
+            _backgroundClickDetector.GetComponent<BackgroundClickDetector>().PassMouseDown();
         }
     }
 

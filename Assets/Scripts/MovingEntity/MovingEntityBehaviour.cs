@@ -20,14 +20,21 @@ public class MovingEntityBehaviour : MonoBehaviour
     protected MovingEntityData _movingEntityData;
     public MovingEntityData movingEntityData => _movingEntityData;
 
+    protected string _identification;
+    public string identification => _identification;
+    protected string _role;
+    public string role => _role;
+
     public virtual void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _destroyedEntityCollectionObject = GameObject.FindWithTag("DestroyedEntityCollection");
-
+        
+        /*
         _hpText = Instantiate<GameObject>(_labelPrefab, new Vector3(-2, 0, 0), Quaternion.identity);
         _hpText.transform.SetParent(gameObject.transform, false);
         _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_movingEntityData.hp);
+        */
     }
 
     public void SetMovingEntityProperties(MovingEntityData movingEntityData)
@@ -51,17 +58,23 @@ public class MovingEntityBehaviour : MonoBehaviour
     public void Attacked(int damage)
     {
         _movingEntityData.hp -= damage;
-        _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_movingEntityData.hp);
+        //_hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_movingEntityData.hp);
         if (_movingEntityData.hp <= 0)
         {
             Destroyed();
         }
     }
 
-    void Destroyed()
+    public virtual void Destroyed()
     {
         var destroyedEntity = Instantiate<GameObject>(_destroyedEntityPrefab, transform.position, Quaternion.identity);
         destroyedEntity.transform.SetParent(_destroyedEntityCollectionObject.transform, false);
         Destroy(gameObject);
+    }
+
+    void OnMouseDown()
+    {
+        GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
+        GameManager.Instance.editManager.selectedObject = gameObject;
     }
 }

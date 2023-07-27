@@ -15,18 +15,24 @@ public class EscortBehaviour : MovingEntityBehaviour
     private EscortTravelMode _travelMode;
     private Dictionary<GameObject, int> _detectedUboatCountDict => GameManager.Instance.detectionManager.detectedUboatCountDict;
 
+    private GameObject _shipRadar;
 
     public override void Start()
     {
         base.Start();
 
-        var nameText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
-        nameText.transform.SetParent(gameObject.transform, false);
-        nameText.GetComponent<LabelTextBehaviour>().SetNameLabel(gameObject, ParentType.Escort);
+        _identification = "DD-" + movingEntityData.id.ToString();
+        _role = "Clemson-class";
+
+        /*
+        var identificationText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        identificationText.transform.SetParent(gameObject.transform, false);
+        identificationText.GetComponent<LabelTextBehaviour>().SetIdentificationLabel(gameObject);
 
         var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleText.transform.SetParent(gameObject.transform, false);
-        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Escort);
+        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
+        */
 
         _travelMode = EscortTravelMode.Random;
         SetDestinationRandomly();
@@ -59,6 +65,17 @@ public class EscortBehaviour : MovingEntityBehaviour
                 SetDestinationRandomly();
             }
         }
+    }
+
+    public void SetShipRadar(GameObject shipRadar)
+    {
+        _shipRadar = shipRadar;
+    }
+
+    public override void Destroyed()
+    {
+        Destroy(_shipRadar);
+        base.Destroyed();
     }
 
     void OnCollisionEnter2D(Collision2D collision)

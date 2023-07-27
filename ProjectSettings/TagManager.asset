@@ -17,8 +17,10 @@ TagManager:
   - Escort
   - DestroyedEntityCollection
   - StationaryRadar
-  - StationaryRadarSpawner
   - ShipRadar
+  - BackgroundClickDetector
+  - RadarCollection
+  - Radar
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 
 public class UboatSpawner : MovingEntitySpawner
 {
+    [SerializeField] private GameObject _radarCollection;
 
     void Start()
     {
@@ -20,5 +21,6 @@ public class UboatSpawner : MovingEntitySpawner
 
         var uboat = SpawnEntity(initialPosition, MovingEntityInitialData.Uboat(id));
         GameManager.Instance.uboatManager.AddNewUboat(id, uboat);
+        _radarCollection.GetComponent<RadarSpawner>().SpawnDetectorForUboat(uboat, RadarInitialData.Uboat());
     }
 }

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EscortSpawner : MovingEntitySpawner
 {
-    [SerializeField] private GameObject _shipRadarPrefab;
-    private float _range = 10f;
+    [SerializeField] private GameObject _radarCollection;
 
     public void SpawnEscortOnMousePosition()
     {
@@ -19,14 +18,6 @@ public class EscortSpawner : MovingEntitySpawner
         var escort = SpawnEntity(position, MovingEntityInitialData.Escort(id));
         GameManager.Instance.escortManager.AddNewEscort(id, escort);
 
-        SpawnRadarOnShip(escort);
-    }
-
-    public void SpawnRadarOnShip(GameObject ship)
-    {
-        var radar = Instantiate<GameObject>(_shipRadarPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        radar.transform.SetParent(ship.transform, false);
-        radar.transform.localScale = new Vector3(_range, _range, _range);
-        radar.GetComponent<ShipRadarBehaviour>().SetShipParent(ship);
+        _radarCollection.GetComponent<RadarSpawner>().SpawnRadarOnShip(escort, RadarInitialData.Escort());
     }
 }

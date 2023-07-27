@@ -11,27 +11,29 @@ public class UboatBehaviour : MovingEntityBehaviour
         Random,
         TrackFriendly
     }
-    [SerializeField] private GameObject _detectorForUboatPrefab;
 
     private UboatTravelMode _travelMode;
 
     private Dictionary<GameObject, int> _detectedFriendlyCountDict => GameManager.Instance.detectionManager.detectedFriendlyCountDict;
 
+    private GameObject _detectorForUboat;
+
     public override void Start()
     {
         base.Start();
 
-        var nameText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
-        nameText.transform.SetParent(gameObject.transform, false);
-        nameText.GetComponent<LabelTextBehaviour>().SetNameLabel(gameObject, ParentType.Uboat);
+        _identification = "U-" + movingEntityData.id.ToString();
+        _role = "Type VII";
+
+        /*
+        var identificationText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        identificationText.transform.SetParent(gameObject.transform, false);
+        identificationText.GetComponent<LabelTextBehaviour>().SetIdentificationLabel(gameObject);
 
         var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleText.transform.SetParent(gameObject.transform, false);
-        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject, ParentType.Uboat);
-
-        var detectorForUboat = Instantiate<GameObject>(_detectorForUboatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        detectorForUboat.GetComponent<DetectorForUboatBehaviour>().SetParent(gameObject);
-        detectorForUboat.transform.SetParent(gameObject.transform, false);
+        roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
+        */
 
         _travelMode = UboatTravelMode.Random;
         SetDestinationRandomly();
@@ -66,6 +68,11 @@ public class UboatBehaviour : MovingEntityBehaviour
         }
     }
 
+    public void SetDetectorForUboat(GameObject detectorForUboat)
+    {
+        _detectorForUboat = detectorForUboat;
+    }
+
     public void Reveal()
     {
         GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
@@ -85,6 +92,12 @@ public class UboatBehaviour : MovingEntityBehaviour
                 SetDestinationRandomly();
             }
         }
+    }
+
+    public override void Destroyed()
+    {
+        Destroy(_detectorForUboat);
+        base.Destroyed();
     }
 
     void OnCollisionEnter2D(Collision2D collision)

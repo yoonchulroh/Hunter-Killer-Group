@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class RadarOriginBehaviour : MonoBehaviour
 {
-    private GameObject _parent;
+    private GameObject _stationaryRadar;
 
-    public void SetParent(GameObject parent)
+    public void SetStationaryRadar(GameObject stationaryRadar)
     {
-        _parent = parent;
+        _stationaryRadar = stationaryRadar;
     }
 
     void OnMouseDown()
     {
         if (GameManager.Instance.editManager.editMode == EditMode.Delete)
         {
-            _parent.GetComponent<StationaryRadarBehaviour>().RemoveRadar();
+            _stationaryRadar.GetComponent<RadarBehaviour>().RemoveRadar();
         }
     }
 }
