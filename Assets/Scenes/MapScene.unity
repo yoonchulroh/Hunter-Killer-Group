@@ -303,7 +303,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
-  _shipRadarPrefab: {fileID: 8548935168195070218, guid: 790f3949c1fbd4572ab1ce4df85d2f56, type: 3}
   _radarCollection: {fileID: 761748818}
 --- !u!1 &205295776
 GameObject:
@@ -1532,6 +1531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stationaryRadarPrefab: {fileID: 8548935168195070218, guid: b4dcce9a67e364823b3cfff6469eee39, type: 3}
+  _shipRadarPrefab: {fileID: 8548935168195070218, guid: 790f3949c1fbd4572ab1ce4df85d2f56, type: 3}
+  _detectorForUboatPrefab: {fileID: 8548935168195070218, guid: 30dc1c712e81f4060a0262615cb0f43e, type: 3}
 --- !u!1 &791648987
 GameObject:
   m_ObjectHideFlags: 0
@@ -2654,7 +2655,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 5ee50e7eb575b42c6ae48329b50b884f, type: 3}
-  _detectorForUboatPrefab: {fileID: 5873416793361673414, guid: 8230942ff020d40e0bbf78e64a99b1ca, type: 3}
   _radarCollection: {fileID: 761748818}
 --- !u!4 &1931585056
 Transform:

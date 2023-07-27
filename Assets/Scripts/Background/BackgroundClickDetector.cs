@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public class BackgroundClickDetector : MonoBehaviour
 {
-    private GameObject _stationaryRadarSpawner;
+    private GameObject _radarSpawner;
     private GameObject _escortSpawner;
 
     void Start()
     {
-        _stationaryRadarSpawner = GameObject.FindWithTag("RadarCollection");
+        _radarSpawner = GameObject.FindWithTag("RadarCollection");
         _escortSpawner = GameObject.FindWithTag("EscortSpawner");
     }
     void OnMouseDown()
@@ -18,7 +18,7 @@ public class BackgroundClickDetector : MonoBehaviour
         {
             if (GameManager.Instance.editManager.editMode == EditMode.CreateRadar)
             {
-                _stationaryRadarSpawner.GetComponent<StationaryRadarSpawner>().SpawnRadarOnMousePosition();
+                _radarSpawner.GetComponent<RadarSpawner>().SpawnRadarOnMousePosition();
             }
             if (GameManager.Instance.editManager.editMode == EditMode.CreateEscort)
             {

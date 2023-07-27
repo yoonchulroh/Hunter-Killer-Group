@@ -6,11 +6,19 @@ public class RadarBehaviour : MonoBehaviour
 {
     protected List<GameObject> _detectedUboats = new List<GameObject>();
 
+    protected RadarData _radarProperties;
+
     private GameObject _backgroundClickDetector;
 
     void Start()
     {
         _backgroundClickDetector = GameObject.FindWithTag("BackgroundClickDetector");
+        gameObject.transform.localScale = new Vector3(_radarProperties.range, _radarProperties.range, _radarProperties.range);
+    }
+
+    public void SetRadarProperties(RadarData radarProperties)
+    {
+        _radarProperties = radarProperties;
     }
     
     void OnTriggerEnter2D(Collider2D collision)
