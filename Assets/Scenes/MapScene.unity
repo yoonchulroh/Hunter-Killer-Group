@@ -304,7 +304,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
   _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
-  _entityManager: {fileID: 334572935}
   _radarCollection: {fileID: 761748818}
 --- !u!1 &205295776
 GameObject:
@@ -1232,6 +1231,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1305,6 +1305,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &606172017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,7 +1894,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 4974811147804403922, guid: 5d63a8363224246448180019c6898277, type: 3}
   _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
-  _entityManager: {fileID: 1415796444}
 --- !u!4 &1199364393
 Transform:
   m_ObjectHideFlags: 0
@@ -2694,7 +2709,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 5ee50e7eb575b42c6ae48329b50b884f, type: 3}
   _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
-  _entityManager: {fileID: 734951283}
   _radarCollection: {fileID: 761748818}
 --- !u!4 &1931585056
 Transform:

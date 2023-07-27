@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
-public class BackgroundClickDetector : MonoBehaviour
+public class BackgroundClickDetector : MonoBehaviour, IPointerClickHandler
 {
     private GameObject _radarSpawner;
     private GameObject _escortSpawner;
@@ -31,6 +31,35 @@ public class BackgroundClickDetector : MonoBehaviour
         }
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (!IsPointerOverUIObject())
+            {
+                if (GameManager.Instance.editManager.editMode == EditMode.CreateRadar)
+                {
+                    _radarSpawner.GetComponent<RadarSpawner>().SpawnRadarOnMousePosition();
+                }
+                if (GameManager.Instance.editManager.editMode == EditMode.CreateEscort)
+                {
+                    _escortSpawner.GetComponent<EscortSpawner>().SpawnEscortOnMousePosition();
+                }
+                if (GameManager.Instance.editManager.editMode == EditMode.Select)
+                {
+                    GameManager.Instance.editManager.SwitchEditMode(EditMode.None);
+                }
+            }
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
+            {
+                GameManager.Instance.editManager.selectedObject.GetComponent<EscortBehaviour>().PointOrder(Camera.main.ScreenToWorldPoint( new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0) ));
+            }
+        }
+    }
+
     public void PassMouseDown()
     {
         OnMouseDown();
@@ -42,6 +71,6 @@ public class BackgroundClickDetector : MonoBehaviour
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-        return results.Count > 0;
+        return results.Count > 1;
     }
 }

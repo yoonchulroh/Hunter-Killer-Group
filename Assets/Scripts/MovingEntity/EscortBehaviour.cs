@@ -9,13 +9,19 @@ public class EscortBehaviour : MovingEntityBehaviour
     private enum EscortTravelMode
     {
         Random,
-        TrackUboat
+        TrackUboat,
+        FollowFriendly,
+        PatrolSeaway,
+        FollowPointOrder
     }
 
     private EscortTravelMode _travelMode;
     private Dictionary<GameObject, int> _detectedUboatCountDict => GameManager.Instance.detectionManager.detectedUboatCountDict;
 
     private GameObject _shipRadar;
+
+    private Vector3 _nextDestination;
+    private GameObject _targetObject;
 
     public override void Start()
     {
@@ -42,27 +48,72 @@ public class EscortBehaviour : MovingEntityBehaviour
 
     void Update()
     {
+        switch (_travelMode)
+        {
+            case EscortTravelMode.TrackUboat:
+                if (_detectedUboatCountDict.Count == 0)
+                {
+                    _travelMode = EscortTravelMode.Random;
+                    SetDestinationRandomly();
+                } else {
+                    SetDestinationOnClosestUboat();
+                }
+                break;
+            case EscortTravelMode.FollowFriendly:
+                _destination = _targetObject.transform.position;
+                break;
+            default:
+                CheckArrivedAtDestination(0.5f);
+                if (_detectedUboatCountDict.Count > 0)
+                {
+                    _travelMode = EscortTravelMode.TrackUboat;
+                    SetDestinationOnClosestUboat();
+                }
+                break;
+        }
+
         var currentPosition = transform.position;
         var directionalVector = _movingEntityData.speed * (_destination - currentPosition).normalized;
         _rigidBody2D.velocity = directionalVector;
+    }
 
-        if (_travelMode == EscortTravelMode.Random)
+    public void PatrolSeawayOrder(Vector3 end1Coordinates, Vector3 end2Coordinates)
+    {
+        _travelMode = EscortTravelMode.PatrolSeaway;
+        if (Vector3.Distance(transform.position, end1Coordinates) < Vector3.Distance(transform.position, end2Coordinates))
         {
-            CheckArrivedAtDestination(0.1f);
+            _destination = end1Coordinates;
+            _nextDestination = end2Coordinates;
+        } else {
+            _destination = end2Coordinates;
+            _nextDestination = end1Coordinates;
         }
+    }
 
-        //setting new destination coordinates
-        if (_detectedUboatCountDict.Count > 0)
+    public void PointOrder(Vector3 coordinates)
+    {
+        _travelMode = EscortTravelMode.FollowPointOrder;
+        _destination = coordinates;
+    }
+
+    public void FollowFriendlyOrder(GameObject friendly)
+    {
+        _travelMode = EscortTravelMode.FollowFriendly;
+        _targetObject = friendly;
+    }
+
+    public override void CheckArrivedAtDestination(float allowedRange)
+    {
+        if (Math.Abs(transform.position.x - _destination.x) < allowedRange && Math.Abs(transform.position.y - _destination.y) < allowedRange)
         {
-            _travelMode = EscortTravelMode.TrackUboat;
-            SetDestinationOnClosestUboat();
-        }
-        else
-        {
-            if (_travelMode != EscortTravelMode.Random)
+            if (_travelMode == EscortTravelMode.Random || _travelMode == EscortTravelMode.FollowPointOrder)
             {
-                _travelMode = EscortTravelMode.Random;
                 SetDestinationRandomly();
+            } else if (_travelMode == EscortTravelMode.PatrolSeaway)
+            {
+                var tempNextDestination = _nextDestination;
+                _nextDestination = _destination;
+                _destination = tempNextDestination;
             }
         }
     }

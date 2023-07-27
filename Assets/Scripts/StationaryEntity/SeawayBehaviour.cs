@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SeawayBehaviour : MonoBehaviour
+public class SeawayBehaviour : MonoBehaviour, IPointerClickHandler
 {
     private GameObject _portManager;
     private GameObject _backgroundClickDetector;
@@ -17,7 +18,7 @@ public class SeawayBehaviour : MonoBehaviour
     private Vector3 _end2coordinates;
 
     private Vector3 _perpendicularVector;
-    private float colliderHalfWidth = 0.3f;
+    private float colliderHalfWidth = 1f;
 
     void Awake()
     {
@@ -44,14 +45,25 @@ public class SeawayBehaviour : MonoBehaviour
         polygonCollider.SetPath(0, new List<Vector2> {point1, point2, point3, point4} );
     }
 
-    void OnMouseDown()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (GameManager.Instance.editManager.editMode == EditMode.Delete)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            GameManager.Instance.seawayManager.RemoveSeaway(_end1, _end2);
-            Destroy(gameObject);
-        } else {
-            _backgroundClickDetector.GetComponent<BackgroundClickDetector>().PassMouseDown();
+            if (GameManager.Instance.editManager.editMode == EditMode.Delete)
+            {
+                GameManager.Instance.seawayManager.RemoveSeaway(_end1, _end2);
+                Destroy(gameObject);
+            }
+            else {
+                _backgroundClickDetector.GetComponent<BackgroundClickDetector>().PassMouseDown();
+            }
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
+            {
+                GameManager.Instance.editManager.selectedObject.GetComponent<EscortBehaviour>().PatrolSeawayOrder(_end1coordinates, _end2coordinates);
+            }
         }
     }
 
