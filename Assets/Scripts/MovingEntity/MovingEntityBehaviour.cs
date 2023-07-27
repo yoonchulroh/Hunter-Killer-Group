@@ -29,7 +29,7 @@ public class MovingEntityBehaviour : MonoBehaviour
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _destroyedEntityCollectionObject = GameObject.FindWithTag("DestroyedEntityCollection");
-
+        
         _hpText = Instantiate<GameObject>(_labelPrefab, new Vector3(-2, 0, 0), Quaternion.identity);
         _hpText.transform.SetParent(gameObject.transform, false);
         _hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_movingEntityData.hp);

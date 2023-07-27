@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class RadarBehaviour : MonoBehaviour
 {
-    protected List<GameObject> _detectedUboats = new List<GameObject>();
+    protected List<GameObject> _detectedEntities = new List<GameObject>();
 
     protected RadarData _radarProperties;
+    protected GameObject _parent;
 
     private GameObject _backgroundClickDetector;
 
@@ -16,31 +17,67 @@ public class RadarBehaviour : MonoBehaviour
         gameObject.transform.localScale = new Vector3(_radarProperties.range, _radarProperties.range, _radarProperties.range);
     }
 
+    void Update()
+    {
+        transform.position = _parent.transform.position;
+    }
+
     public void SetRadarProperties(RadarData radarProperties)
     {
         _radarProperties = radarProperties;
     }
+
+    public void SetRadarParent(GameObject parent)
+    {
+        _parent = parent;
+    }
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Uboat")
+        if (_radarProperties.enemyTags.Contains(collision.gameObject.tag))
         {
-            _detectedUboats.Add(collision.gameObject);
-            GameManager.Instance.detectionManager.AddUboat(collision.gameObject);
+            _detectedEntities.Add(collision.gameObject);
+
+            if (_parent.tag == "Uboat")
+            {
+                GameManager.Instance.detectionManager.AddFriendly(collision.gameObject);
+            } else {
+                GameManager.Instance.detectionManager.AddUboat(collision.gameObject);
+            }
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Uboat")
+        if (_radarProperties.enemyTags.Contains(collision.gameObject.tag))
         {
-            _detectedUboats.Remove(collision.gameObject);
-            GameManager.Instance.detectionManager.RemoveUboat(collision.gameObject);
+            _detectedEntities.Remove(collision.gameObject);
+
+            if (_parent.tag == "Uboat")
+            {
+                GameManager.Instance.detectionManager.RemoveFriendly(collision.gameObject);
+            } else {
+                GameManager.Instance.detectionManager.RemoveUboat(collision.gameObject);
+            }
         }
     }
 
     void OnMouseDown()
     {
         _backgroundClickDetector.GetComponent<BackgroundClickDetector>().PassMouseDown();
+    }
+
+    public void RemoveRadar()
+    {
+        foreach(GameObject entity in _detectedEntities)
+        {
+            if (_parent.tag == "Uboat")
+            {
+                GameManager.Instance.detectionManager.RemoveFriendly(entity);
+            } else {
+                GameManager.Instance.detectionManager.RemoveUboat(entity);
+            }
+        }
+        Destroy(gameObject);
     }
 }

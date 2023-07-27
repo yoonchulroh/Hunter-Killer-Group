@@ -20,6 +20,7 @@ TagManager:
   - ShipRadar
   - BackgroundClickDetector
   - RadarCollection
+  - Radar
   layers:
   - Default
   - TransparentFX
