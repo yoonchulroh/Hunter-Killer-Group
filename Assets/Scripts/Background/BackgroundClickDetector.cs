@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class BackgroundClickDetector : MonoBehaviour
 {
@@ -7,18 +9,39 @@ public class BackgroundClickDetector : MonoBehaviour
 
     void Start()
     {
-        _stationaryRadarSpawner = GameObject.FindWithTag("StationaryRadarSpawner");
+        _stationaryRadarSpawner = GameObject.FindWithTag("RadarCollection");
         _escortSpawner = GameObject.FindWithTag("EscortSpawner");
     }
     void OnMouseDown()
     {
-        if (GameManager.Instance.editManager.editMode == EditMode.CreateRadar)
+        if (!IsPointerOverUIObject())
         {
-            _stationaryRadarSpawner.GetComponent<StationaryRadarSpawner>().SpawnRadarOnMousePosition();
+            if (GameManager.Instance.editManager.editMode == EditMode.CreateRadar)
+            {
+                _stationaryRadarSpawner.GetComponent<StationaryRadarSpawner>().SpawnRadarOnMousePosition();
+            }
+            if (GameManager.Instance.editManager.editMode == EditMode.CreateEscort)
+            {
+                _escortSpawner.GetComponent<EscortSpawner>().SpawnEscortOnMousePosition();
+            }
+            if (GameManager.Instance.editManager.editMode == EditMode.Select)
+            {
+                GameManager.Instance.editManager.SwitchEditMode(EditMode.None);
+            }
         }
-        if (GameManager.Instance.editManager.editMode == EditMode.CreateEscort)
-        {
-            _escortSpawner.GetComponent<EscortSpawner>().SpawnEscortOnMousePosition();
-        }
+    }
+
+    public void PassMouseDown()
+    {
+        OnMouseDown();
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }

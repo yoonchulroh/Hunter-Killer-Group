@@ -63,7 +63,7 @@ public class MovingEntityBehaviour : MonoBehaviour
         }
     }
 
-    void Destroyed()
+    public virtual void Destroyed()
     {
         var destroyedEntity = Instantiate<GameObject>(_destroyedEntityPrefab, transform.position, Quaternion.identity);
         destroyedEntity.transform.SetParent(_destroyedEntityCollectionObject.transform, false);

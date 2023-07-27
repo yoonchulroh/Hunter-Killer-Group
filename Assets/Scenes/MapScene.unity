@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
   _shipRadarPrefab: {fileID: 8548935168195070218, guid: 790f3949c1fbd4572ab1ce4df85d2f56, type: 3}
+  _radarCollection: {fileID: 761748818}
 --- !u!1 &205295776
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,8 +441,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1497,8 +1498,8 @@ GameObject:
   - component: {fileID: 761748819}
   - component: {fileID: 761748820}
   m_Layer: 0
-  m_Name: StationaryRadars
-  m_TagString: StationaryRadarSpawner
+  m_Name: Radars
+  m_TagString: RadarCollection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1623,8 +1624,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2445,8 +2446,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2653,6 +2654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 5ee50e7eb575b42c6ae48329b50b884f, type: 3}
+  _detectorForUboatPrefab: {fileID: 5873416793361673414, guid: 8230942ff020d40e0bbf78e64a99b1ca, type: 3}
+  _radarCollection: {fileID: 761748818}
 --- !u!4 &1931585056
 Transform:
   m_ObjectHideFlags: 0
@@ -2816,7 +2819,7 @@ GameObject:
   - component: {fileID: 1971195977}
   m_Layer: 0
   m_Name: BackgroundClickDetector
-  m_TagString: Untagged
+  m_TagString: BackgroundClickDetector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

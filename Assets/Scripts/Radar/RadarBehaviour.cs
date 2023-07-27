@@ -6,6 +6,13 @@ public class RadarBehaviour : MonoBehaviour
 {
     protected List<GameObject> _detectedUboats = new List<GameObject>();
 
+    private GameObject _backgroundClickDetector;
+
+    void Start()
+    {
+        _backgroundClickDetector = GameObject.FindWithTag("BackgroundClickDetector");
+    }
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Uboat")
@@ -22,5 +29,10 @@ public class RadarBehaviour : MonoBehaviour
             _detectedUboats.Remove(collision.gameObject);
             GameManager.Instance.detectionManager.RemoveUboat(collision.gameObject);
         }
+    }
+
+    void OnMouseDown()
+    {
+        _backgroundClickDetector.GetComponent<BackgroundClickDetector>().PassMouseDown();
     }
 }

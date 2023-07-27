@@ -15,6 +15,7 @@ public class EscortBehaviour : MovingEntityBehaviour
     private EscortTravelMode _travelMode;
     private Dictionary<GameObject, int> _detectedUboatCountDict => GameManager.Instance.detectionManager.detectedUboatCountDict;
 
+    private GameObject _shipRadar;
 
     public override void Start()
     {
@@ -62,6 +63,17 @@ public class EscortBehaviour : MovingEntityBehaviour
                 SetDestinationRandomly();
             }
         }
+    }
+
+    public void SetShipRadar(GameObject shipRadar)
+    {
+        _shipRadar = shipRadar;
+    }
+
+    public override void Destroyed()
+    {
+        Destroy(_shipRadar);
+        base.Destroyed();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
