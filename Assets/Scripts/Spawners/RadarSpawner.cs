@@ -42,7 +42,7 @@ public class RadarSpawner : MonoBehaviour
 
     public void SpawnDetectorForUboat(GameObject uboat, RadarData radarProperties)
     {
-        var detectorForUboat = Instantiate<GameObject>(_radarPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        var detectorForUboat = Instantiate<GameObject>(_radarPrefab, new Vector3(0, 0, 1), Quaternion.identity);
         detectorForUboat.transform.SetParent(gameObject.transform, false);
 
         detectorForUboat.GetComponent<RadarBehaviour>().SetRadarProperties(radarProperties);

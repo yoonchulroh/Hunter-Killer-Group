@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
+  _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
   _radarCollection: {fileID: 761748818}
 --- !u!1 &205295776
 GameObject:
@@ -1873,6 +1874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 4974811147804403922, guid: 5d63a8363224246448180019c6898277, type: 3}
+  _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
 --- !u!4 &1199364393
 Transform:
   m_ObjectHideFlags: 0
@@ -2686,6 +2688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 5ee50e7eb575b42c6ae48329b50b884f, type: 3}
+  _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
   _radarCollection: {fileID: 761748818}
 --- !u!4 &1931585056
 Transform:

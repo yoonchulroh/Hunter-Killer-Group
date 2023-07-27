@@ -18,8 +18,8 @@ public class RadarBehaviour : MonoBehaviour
     }
 
     void Update()
-    {
-        transform.position = _parent.transform.position;
+    {   
+        transform.position = new Vector3(_parent.transform.position.x, _parent.transform.position.y, 1);
     }
 
     public void SetRadarProperties(RadarData radarProperties)
