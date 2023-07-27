@@ -40,6 +40,6 @@ public class CameraManager : MonoBehaviour
     {
         MoveCameraToCoordinates(0, 0);
         SetCameraSize(30);
-        SetGameObjectLimits(60f, 25f);
+        SetGameObjectLimits(50f, 25f);
     }
 }

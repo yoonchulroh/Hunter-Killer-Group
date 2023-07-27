@@ -75,6 +75,11 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
         Destroy(gameObject);
     }
 
+    public Vector3 CurrentPosition()
+    {
+        return transform.position;
+    }
+
     void OnMouseDown()
     {
         GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
