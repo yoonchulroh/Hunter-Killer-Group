@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PortSpawner : MonoBehaviour
+public class PortSpawner : StationaryEntitySpawner
 {
-    [SerializeField] private GameObject _portPrefab;
     private PortManager _portManager;
 
     void Start()
@@ -21,11 +20,9 @@ public class PortSpawner : MonoBehaviour
 
     void SpawnPort(int ID, float xPos, float yPos, PortType portType, ResourceType resourceType)
     {
-        var port = Instantiate<GameObject>(_portPrefab, new Vector3(xPos, yPos, -1), Quaternion.identity);
-        port.transform.SetParent(gameObject.transform);
-        port.GetComponent<PortBehaviour>().SetCoordinate(new Vector3(xPos, yPos, -1));
-        port.GetComponent<PortBehaviour>().SetID(ID);
-        port.GetComponent<PortBehaviour>().SetPortRole(portType, resourceType);
+        var port = SpawnEntity(ID, new Vector3(xPos, yPos, -1));
         _portManager.AddNewPort(ID, port, portType, resourceType);
+
+        port.GetComponent<PortBehaviour>().SetPortRole(portType, resourceType);
     }
 }

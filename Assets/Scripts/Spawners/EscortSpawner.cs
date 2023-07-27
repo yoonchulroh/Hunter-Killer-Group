@@ -10,14 +10,14 @@ public class EscortSpawner : MovingEntitySpawner
     {
         var mousePosition = Camera.main.ScreenToWorldPoint( new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0) );
         mousePosition.z = 0f;
-        SpawnEscort(GameManager.Instance.escortManager.escortCount + 1, mousePosition);
+        SpawnEscort(GameManager.Instance.escortManager.movingEntityCount + 1, mousePosition);
     }
 
     private void SpawnEscort(int id, Vector3 position)
     {
         var escort = SpawnEntity(position, MovingEntityInitialData.Escort(id));
-        GameManager.Instance.escortManager.AddNewEscort(id, escort);
-
+        GameManager.Instance.escortManager.AddNewEntity(id, escort);
+        
         _radarCollection.GetComponent<RadarSpawner>().SpawnRadarOnShip(escort, RadarInitialData.Escort());
     }
 }

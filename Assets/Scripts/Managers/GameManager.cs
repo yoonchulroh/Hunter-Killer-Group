@@ -7,11 +7,11 @@ public class GameManager : MonoBehaviour
     public EditManager editManager { get; private set; }
     public UIManager uIManager { get; private set; }
 
-    public ConvoyManager convoyManager { get; private set; }
+    public MovingEntityManager convoyManager { get; private set; }
+    public MovingEntityManager uboatManager { get; private set; }
+    public MovingEntityManager escortManager { get; private set; }
     public PortManager portManager { get; private set; }
     public SeawayManager seawayManager { get; private set; }
-    public UboatManager uboatManager { get; private set; }
-    public EscortManager escortManager { get; private set; }
     public DetectionManager detectionManager { get; private set; }
 
     private void Awake()
@@ -27,11 +27,11 @@ public class GameManager : MonoBehaviour
         editManager = GetComponentInChildren<EditManager>();
         uIManager = GetComponentInChildren<UIManager>();
 
-        convoyManager = GetComponentInChildren<ConvoyManager>();
+        convoyManager = GetComponentInChildren<MovingEntityManager>();
+        uboatManager = GetComponentInChildren<MovingEntityManager>();
+        escortManager = GetComponentInChildren<MovingEntityManager>();
         portManager = GetComponentInChildren<PortManager>();
         seawayManager = GetComponentInChildren<SeawayManager>();
-        uboatManager = GetComponentInChildren<UboatManager>();
-        escortManager = GetComponentInChildren<EscortManager>();
         detectionManager = GetComponentInChildren<DetectionManager>();
     }
 }

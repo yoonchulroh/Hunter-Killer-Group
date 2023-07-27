@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 7a1fc70bf955740c598452fad039b588, type: 3}
   _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
+  _entityManager: {fileID: 334572935}
   _radarCollection: {fileID: 761748818}
 --- !u!1 &205295776
 GameObject:
@@ -335,7 +336,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1484151865}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &205295778
 MonoBehaviour:
@@ -756,7 +757,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1484151865}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &297886752
 MonoBehaviour:
@@ -811,9 +812,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 334572935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ce0143134648495e92cf920917c99cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 25c49d27c64a845a6a25587ccc6c15e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movingEntityCount: 0
 --- !u!1 &386049046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,9 +1471,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 734951283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ca250d968a284614bcbc01874e40745, type: 3}
+  m_Script: {fileID: 11500000, guid: 25c49d27c64a845a6a25587ccc6c15e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movingEntityCount: 0
 --- !u!1 &750143291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2949fb91dc2942dd84f48622c774378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _portPrefab: {fileID: 2464769148631190188, guid: 7342c7637ff8e44d88570fd038d8b3fe, type: 3}
+  _entityPrefab: {fileID: 2464769148631190188, guid: 7342c7637ff8e44d88570fd038d8b3fe, type: 3}
 --- !u!4 &1083773962
 Transform:
   m_ObjectHideFlags: 0
@@ -1875,6 +1878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 4974811147804403922, guid: 5d63a8363224246448180019c6898277, type: 3}
   _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
+  _entityManager: {fileID: 1415796444}
 --- !u!4 &1199364393
 Transform:
   m_ObjectHideFlags: 0
@@ -2188,7 +2192,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1484151865}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1415796446
 MonoBehaviour:
@@ -2199,9 +2203,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1415796444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3918a2b6041e041cea62e7f7dbd31c35, type: 3}
+  m_Script: {fileID: 11500000, guid: 25c49d27c64a845a6a25587ccc6c15e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movingEntityCount: 0
 --- !u!1 &1484151863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,9 +2250,9 @@ Transform:
   m_Children:
   - {fileID: 668969522}
   - {fileID: 606172018}
-  - {fileID: 1415796445}
   - {fileID: 297886751}
   - {fileID: 205295777}
+  - {fileID: 1415796445}
   - {fileID: 734951284}
   - {fileID: 334572936}
   - {fileID: 1990126138}
@@ -2689,6 +2694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8864324125116364823, guid: 5ee50e7eb575b42c6ae48329b50b884f, type: 3}
   _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
+  _entityManager: {fileID: 734951283}
   _radarCollection: {fileID: 761748818}
 --- !u!4 &1931585056
 Transform:
