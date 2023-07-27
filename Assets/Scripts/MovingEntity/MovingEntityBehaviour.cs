@@ -45,7 +45,9 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
 
     public void SetDestinationRandomly()
     {
-        _destination = new Vector3(Random.Range(-40, 40), Random.Range(-20, 20), 0f);
+        var xLimit = GameManager.Instance.cameraManager.gameObjectXLimit;
+        var yLimit = GameManager.Instance.cameraManager.gameObjectYLimit;
+        _destination = new Vector3(Random.Range(-xLimit, xLimit), Random.Range(-yLimit, yLimit), 0f);
     }
 
     public virtual void CheckArrivedAtDestination(float allowedRange)

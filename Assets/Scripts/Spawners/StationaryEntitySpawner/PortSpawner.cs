@@ -25,4 +25,12 @@ public class PortSpawner : StationaryEntitySpawner
 
         port.GetComponent<PortBehaviour>().SetPortRole(portType, resourceType);
     }
+
+    void SpawnPortRandomly(PortType portType, ResourceType resourceType)
+    {
+        var xLimit = GameManager.Instance.cameraManager.gameObjectXLimit;
+        var yLimit = GameManager.Instance.cameraManager.gameObjectYLimit;
+
+        SpawnPort(GameManager.Instance.portManager.portDict.Count, Random.Range(-xLimit, xLimit), Random.Range(-yLimit, yLimit), portType, resourceType);
+    }
 }

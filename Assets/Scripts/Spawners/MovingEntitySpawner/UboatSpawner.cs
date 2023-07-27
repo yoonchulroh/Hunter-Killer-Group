@@ -11,7 +11,7 @@ public class UboatSpawner : MovingEntitySpawner
     {
         for (int i = 1; i < 6; ++i)
         {
-            SpawnUboat(i, Random.Range(-40, 40), Random.Range(-40, 40));
+            SpawnUboatRandomly();
         }
     }
 
@@ -22,5 +22,12 @@ public class UboatSpawner : MovingEntitySpawner
         var uboat = SpawnEntity(initialPosition, MovingEntityInitialData.Uboat(id));
         GameManager.Instance.uboatManager.AddNewEntity(id, uboat);
         _radarCollection.GetComponent<RadarSpawner>().SpawnDetectorForUboat(uboat, RadarInitialData.Uboat());
+    }
+
+    private void SpawnUboatRandomly()
+    {
+        var xLimit = GameManager.Instance.cameraManager.gameObjectXLimit;
+        var yLimit = GameManager.Instance.cameraManager.gameObjectYLimit;
+        SpawnUboat(GameManager.Instance.uboatManager.movingEntityCount + 1, Random.Range(-xLimit, xLimit), Random.Range(-yLimit, yLimit));
     }
 }

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public PortManager portManager { get; private set; }
     public SeawayManager seawayManager { get; private set; }
     public DetectionManager detectionManager { get; private set; }
+    public CameraManager cameraManager { get; private set; }
 
     private void Awake()
     {
@@ -33,5 +34,6 @@ public class GameManager : MonoBehaviour
         portManager = GetComponentInChildren<PortManager>();
         seawayManager = GetComponentInChildren<SeawayManager>();
         detectionManager = GetComponentInChildren<DetectionManager>();
+        cameraManager = GetComponentInChildren<CameraManager>();
     }
 }
