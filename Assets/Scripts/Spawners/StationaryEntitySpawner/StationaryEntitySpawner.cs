@@ -13,7 +13,7 @@ public class StationaryEntitySpawner : MonoBehaviour
         entity.transform.SetParent(gameObject.transform);
         
         entity.GetComponent<StationaryEntityBehaviour>().SetID(id);
-        entity.GetComponent<StationaryEntityBehaviour>().SetCoordinate(position);
+        entity.GetComponent<StationaryEntityBehaviour>().SetCoordinate(position.x, position.y);
 
         return entity;
     }

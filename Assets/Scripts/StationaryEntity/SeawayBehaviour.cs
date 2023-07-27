@@ -72,9 +72,9 @@ public class SeawayBehaviour : MonoBehaviour, IPointerClickHandler
         _end1 = end1;
         _end2 = end2;
 
-        _end1coordinates = GameManager.Instance.portManager.portDict[end1].GetComponent<PortBehaviour>().coordinate;
+        _end1coordinates = GameManager.Instance.portManager.portDict[end1].GetComponent<PortBehaviour>().Coordinate();
         _end1coordinates.z = 1;
-        _end2coordinates = GameManager.Instance.portManager.portDict[end2].GetComponent<PortBehaviour>().coordinate;
+        _end2coordinates = GameManager.Instance.portManager.portDict[end2].GetComponent<PortBehaviour>().Coordinate();
         _end2coordinates.z = 1;
         GetComponent<LineRenderer>().SetPosition(0, _end1coordinates);
         GetComponent<LineRenderer>().SetPosition(1, _end2coordinates);

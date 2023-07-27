@@ -39,7 +39,7 @@ public class CameraManager : MonoBehaviour
     void Awake()
     {
         MoveCameraToCoordinates(0, 0);
-        SetCameraSize(50);
-        SetGameObjectLimits(50f, 40f);
+        SetCameraSize(30);
+        SetGameObjectLimits(60f, 25f);
     }
 }
