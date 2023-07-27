@@ -25,6 +25,7 @@ public class UboatBehaviour : MovingEntityBehaviour
         _identification = "U-" + movingEntityData.id.ToString();
         _role = "Type VII";
 
+        /*
         var identificationText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
         identificationText.transform.SetParent(gameObject.transform, false);
         identificationText.GetComponent<LabelTextBehaviour>().SetIdentificationLabel(gameObject);
@@ -32,6 +33,7 @@ public class UboatBehaviour : MovingEntityBehaviour
         var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleText.transform.SetParent(gameObject.transform, false);
         roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
+        */
 
         _travelMode = UboatTravelMode.Random;
         SetDestinationRandomly();

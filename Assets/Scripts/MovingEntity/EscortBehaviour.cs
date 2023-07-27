@@ -24,6 +24,7 @@ public class EscortBehaviour : MovingEntityBehaviour
         _identification = "DD-" + movingEntityData.id.ToString();
         _role = "Clemson-class";
 
+        /*
         var identificationText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
         identificationText.transform.SetParent(gameObject.transform, false);
         identificationText.GetComponent<LabelTextBehaviour>().SetIdentificationLabel(gameObject);
@@ -31,6 +32,7 @@ public class EscortBehaviour : MovingEntityBehaviour
         var roleText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, -1, 0), Quaternion.identity);
         roleText.transform.SetParent(gameObject.transform, false);
         roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
+        */
 
         _travelMode = EscortTravelMode.Random;
         SetDestinationRandomly();

@@ -101,7 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
   _destroyedEntityPrefab: {fileID: 3085412390704718716, guid: 9f9f09209eaaa4326969b26113d4c326, type: 3}
-  _detectorForUboatPrefab: {fileID: 5873416793361673414, guid: 8230942ff020d40e0bbf78e64a99b1ca, type: 3}
 --- !u!50 &-1940894318760385825
 Rigidbody2D:
   serializedVersion: 4
