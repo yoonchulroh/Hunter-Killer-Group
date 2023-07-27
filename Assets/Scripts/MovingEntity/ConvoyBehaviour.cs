@@ -64,7 +64,7 @@ public class ConvoyBehaviour : MovingEntityBehaviour
     {
         _originPortID = port.GetComponent<PortBehaviour>().id;
         _currentPortID = port.GetComponent<PortBehaviour>().id;
-        transform.position = port.GetComponent<PortBehaviour>().coordinate;
+        transform.position = port.GetComponent<PortBehaviour>().Coordinate();
     }
 
     public void SetDestination(GameObject port)
@@ -164,7 +164,7 @@ public class ConvoyBehaviour : MovingEntityBehaviour
         else if (previousPortDict[_destinationPortID] == -2)
         {
             _nextPortID = _currentPortID;
-            _destination = GameManager.Instance.portManager.portDict[_currentPortID].GetComponent<PortBehaviour>().coordinate;
+            _destination = GameManager.Instance.portManager.portDict[_currentPortID].GetComponent<PortBehaviour>().Coordinate();
             return true;
         }
         else
@@ -174,7 +174,7 @@ public class ConvoyBehaviour : MovingEntityBehaviour
             if (prevPort == _currentPortID)
             {
                 _nextPortID = _destinationPortID;
-                _destination = GameManager.Instance.portManager.portDict[_destinationPortID].GetComponent<PortBehaviour>().coordinate;
+                _destination = GameManager.Instance.portManager.portDict[_destinationPortID].GetComponent<PortBehaviour>().Coordinate();
                 return true;
             }
             while (!endReached)
@@ -189,7 +189,7 @@ public class ConvoyBehaviour : MovingEntityBehaviour
                 }
             }
             _nextPortID = prevPort;
-            _destination = GameManager.Instance.portManager.portDict[prevPort].GetComponent<PortBehaviour>().coordinate;
+            _destination = GameManager.Instance.portManager.portDict[prevPort].GetComponent<PortBehaviour>().Coordinate();
             return true;
         }
     }

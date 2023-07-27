@@ -6,16 +6,22 @@ public class StationaryEntityBehaviour : MonoBehaviour
 {
     protected int _id;
     public int id => _id;
-    protected Vector3 _coordinate;
-    public Vector3 coordinate => _coordinate;
+    protected float _xCoordinate;
+    protected float _yCoordinate;
 
     public virtual void SetID(int id)
     {
         _id = id;
     }
 
-    public virtual void SetCoordinate(Vector3 coordinate)
+    public virtual void SetCoordinate(float xCoordinate, float yCoordinate)
     {
-        _coordinate = coordinate;
+        _xCoordinate = xCoordinate;
+        _yCoordinate = yCoordinate;
+    }
+
+    public virtual Vector3 Coordinate()
+    {
+        return new Vector3(_xCoordinate, _yCoordinate, 0);
     }
 }

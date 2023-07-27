@@ -60,7 +60,13 @@ public class EscortBehaviour : MovingEntityBehaviour
                 }
                 break;
             case EscortTravelMode.FollowFriendly:
-                _destination = _targetObject.transform.position;
+                if (_targetObject == null)
+                {
+                    _travelMode = EscortTravelMode.Random;
+                    SetDestinationRandomly();
+                } else {
+                    _destination = _targetObject.transform.position;
+                }
                 break;
             default:
                 CheckArrivedAtDestination(0.5f);

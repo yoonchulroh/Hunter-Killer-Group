@@ -45,7 +45,9 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
 
     public void SetDestinationRandomly()
     {
-        _destination = new Vector3(Random.Range(-40, 40), Random.Range(-20, 20), 0f);
+        var xLimit = GameManager.Instance.cameraManager.gameObjectXLimit;
+        var yLimit = GameManager.Instance.cameraManager.gameObjectYLimit;
+        _destination = new Vector3(Random.Range(-xLimit, xLimit), Random.Range(-yLimit, yLimit), 0f);
     }
 
     public virtual void CheckArrivedAtDestination(float allowedRange)
@@ -73,14 +75,20 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
         Destroy(gameObject);
     }
 
+    public Vector3 CurrentPosition()
+    {
+        return transform.position;
+    }
+
+    void OnMouseDown()
+    {
+        GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
+        GameManager.Instance.editManager.selectedObject = gameObject;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
-            GameManager.Instance.editManager.selectedObject = gameObject;
-        }
-        else if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
             {

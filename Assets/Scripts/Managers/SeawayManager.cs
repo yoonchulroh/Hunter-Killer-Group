@@ -16,7 +16,7 @@ public class SeawayManager : MonoBehaviour
     public bool AddSeaway(int end1, int end2)
     {
         var exists = false;
-        var distance = Vector3.Distance(_portManager.portDict[end1].GetComponent<PortBehaviour>().coordinate, _portManager.portDict[end2].GetComponent<PortBehaviour>().coordinate);
+        var distance = Vector3.Distance(_portManager.portDict[end1].GetComponent<PortBehaviour>().Coordinate(), _portManager.portDict[end2].GetComponent<PortBehaviour>().Coordinate());
 
         if (!CheckDestinationInList(end1, end2))
         {

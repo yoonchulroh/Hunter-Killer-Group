@@ -33,25 +33,7 @@ public class BackgroundClickDetector : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            if (!IsPointerOverUIObject())
-            {
-                if (GameManager.Instance.editManager.editMode == EditMode.CreateRadar)
-                {
-                    _radarSpawner.GetComponent<RadarSpawner>().SpawnRadarOnMousePosition();
-                }
-                if (GameManager.Instance.editManager.editMode == EditMode.CreateEscort)
-                {
-                    _escortSpawner.GetComponent<EscortSpawner>().SpawnEscortOnMousePosition();
-                }
-                if (GameManager.Instance.editManager.editMode == EditMode.Select)
-                {
-                    GameManager.Instance.editManager.SwitchEditMode(EditMode.None);
-                }
-            }
-        }
-        else if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
             {

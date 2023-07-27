@@ -37,6 +37,8 @@ public class PortBehaviour : StationaryEntityBehaviour
     public float resourceNeed => _resourceNeed;
     private float resourceFillSpeed = 1f;
 
+    private float _convoySpawnPeriod = 3f;
+
     void Awake()
     {
         _convoySpawner = GameObject.FindWithTag("ConvoySpawner");
@@ -60,6 +62,9 @@ public class PortBehaviour : StationaryEntityBehaviour
             resourceNeedLabel.GetComponent<LabelTextBehaviour>().SetResourceAmountLabel(_resourceNeed);
 
             _resourceNeedLabel = resourceNeedLabel;
+        } else if (_portType == PortType.Producer)
+        {
+            StartCoroutine(SpawnConvoyPeriodically());
         }
     }
 
@@ -75,7 +80,7 @@ public class PortBehaviour : StationaryEntityBehaviour
     public override void SetID(int id)
     {
         base.SetID(id);
-        alphabetID = (char) (id+65);
+        alphabetID = (char) (id+64);
     }
 
     public void SetPortRole(PortType portType, ResourceType resourceType)
@@ -93,6 +98,15 @@ public class PortBehaviour : StationaryEntityBehaviour
         }
     }
 
+    private IEnumerator SpawnConvoyPeriodically()
+    {
+        while (true)
+        {
+            _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id, _resourceType);
+            yield return new WaitForSeconds(_convoySpawnPeriod);
+        }
+    }
+
     void OnMouseDown()
     {
         if (GameManager.Instance.editManager.editMode == EditMode.CreateConvoys && _portType == PortType.Producer)
@@ -106,8 +120,8 @@ public class PortBehaviour : StationaryEntityBehaviour
             GameManager.Instance.editManager.SwitchEditMode(EditMode.CreateSeawaysDestination);
 
             _seawayCandidate = Instantiate<GameObject>(_seawayPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            _seawayCandidate.GetComponent<LineRenderer>().SetPosition(0, coordinate);
-            _seawayCandidate.GetComponent<LineRenderer>().SetPosition(1, coordinate);
+            _seawayCandidate.GetComponent<LineRenderer>().SetPosition(0, Coordinate());
+            _seawayCandidate.GetComponent<LineRenderer>().SetPosition(1, Coordinate());
         }
     }
 

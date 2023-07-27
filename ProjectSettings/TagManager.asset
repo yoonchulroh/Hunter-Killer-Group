@@ -21,6 +21,7 @@ TagManager:
   - BackgroundClickDetector
   - RadarCollection
   - Radar
+  - UboatBase
   layers:
   - Default
   - TransparentFX
