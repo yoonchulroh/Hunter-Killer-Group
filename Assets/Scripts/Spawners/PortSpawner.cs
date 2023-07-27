@@ -21,7 +21,7 @@ public class PortSpawner : MonoBehaviour
 
     void SpawnPort(int ID, float xPos, float yPos, PortType portType, ResourceType resourceType)
     {
-        var port = Instantiate<GameObject>(_portPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        var port = Instantiate<GameObject>(_portPrefab, new Vector3(xPos, yPos, -1), Quaternion.identity);
         port.transform.SetParent(gameObject.transform);
         port.GetComponent<PortBehaviour>().SetCoordinate(new Vector3(xPos, yPos, -1));
         port.GetComponent<PortBehaviour>().SetID(ID);
