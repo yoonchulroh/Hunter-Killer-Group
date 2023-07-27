@@ -11,11 +11,11 @@ public class UboatSpawner : MovingEntitySpawner
     {
         for (int i = 1; i < 6; ++i)
         {
-            SpawnUboatRandomly();
+            //SpawnUboatRandomly();
         }
     }
 
-    private void SpawnUboat(int id, float xPos, float yPos)
+    public void SpawnUboat(int id, float xPos, float yPos)
     {
         var initialPosition = new Vector3(xPos, yPos, 0);
 

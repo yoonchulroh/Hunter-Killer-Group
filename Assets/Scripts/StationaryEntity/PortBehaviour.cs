@@ -80,7 +80,7 @@ public class PortBehaviour : StationaryEntityBehaviour
     public override void SetID(int id)
     {
         base.SetID(id);
-        alphabetID = (char) (id+65);
+        alphabetID = (char) (id+64);
     }
 
     public void SetPortRole(PortType portType, ResourceType resourceType)
