@@ -20,7 +20,7 @@ public class UboatSpawner : MovingEntitySpawner
         var initialPosition = new Vector3(xPos, yPos, 0);
 
         var uboat = SpawnEntity(initialPosition, MovingEntityInitialData.Uboat(id));
-        GameManager.Instance.uboatManager.AddNewUboat(id, uboat);
+        GameManager.Instance.uboatManager.AddNewEntity(id, uboat);
         _radarCollection.GetComponent<RadarSpawner>().SpawnDetectorForUboat(uboat, RadarInitialData.Uboat());
     }
 }

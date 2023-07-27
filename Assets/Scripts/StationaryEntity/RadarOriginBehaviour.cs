@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RadarOriginBehaviour : MonoBehaviour
+public class RadarOriginBehaviour : StationaryEntityBehaviour
 {
     private GameObject _stationaryRadar;
 

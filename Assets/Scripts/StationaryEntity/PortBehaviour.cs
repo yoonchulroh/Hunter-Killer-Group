@@ -17,7 +17,7 @@ public enum ResourceType
     Star
 }
 
-public class PortBehaviour : MonoBehaviour
+public class PortBehaviour : StationaryEntityBehaviour
 {
     [SerializeField] private GameObject _seawayPrefab;
     [SerializeField] private GameObject _labelPrefab;
@@ -25,10 +25,7 @@ public class PortBehaviour : MonoBehaviour
 
     private GameObject _convoySpawner;
     private GameObject _seawaySpawner;
-    public Vector3 coordinate;
 
-    private int _id;
-    public int id => _id;
     public char alphabetID;
 
     private PortType _portType;
@@ -75,15 +72,9 @@ public class PortBehaviour : MonoBehaviour
         }
     }
 
-    public void SetCoordinate(Vector3 portCoordinate)
+    public override void SetID(int id)
     {
-        transform.position = portCoordinate;
-        coordinate = portCoordinate;
-    }
-
-    public void SetID(int id)
-    {
-        _id = id;
+        base.SetID(id);
         alphabetID = (char) (id+65);
     }
 
