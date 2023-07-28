@@ -5,7 +5,7 @@ using UnityEngine;
 public class UboatBaseBehaviour : StationaryEntityBehaviour
 {
     private GameObject _uboatSpawner;
-    private float _uboatSpawnPeriod = 5f;
+    private float _uboatSpawnPeriod = 10f;
 
     void Start()
     {

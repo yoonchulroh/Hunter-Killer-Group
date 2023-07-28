@@ -10,17 +10,18 @@ public class EscortBehaviour : MovingEntityBehaviour
     {
         Random,
         TrackUboat,
-        FollowFriendly,
         PatrolSeaway,
         FollowPointOrder
     }
 
     private EscortTravelMode _travelMode;
+    private EscortTravelMode _previousTravelMode;
     private Dictionary<GameObject, int> _detectedUboatCountDict => GameManager.Instance.detectionManager.detectedUboatCountDict;
 
     private GameObject _shipRadar;
 
-    private Vector3 _nextDestination;
+    private Vector3 _seaway1Coordinates;
+    private Vector3 _seaway2Coordinates;
     private GameObject _targetObject;
 
     public override void Start()
@@ -40,8 +41,9 @@ public class EscortBehaviour : MovingEntityBehaviour
         roleText.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
         */
 
+        _previousTravelMode = EscortTravelMode.Random;
         _travelMode = EscortTravelMode.Random;
-        SetDestinationRandomly();
+        SwitchTravelMode(EscortTravelMode.Random);
 
         StartCoroutine(AttackClosestUboat());
     }
@@ -53,27 +55,16 @@ public class EscortBehaviour : MovingEntityBehaviour
             case EscortTravelMode.TrackUboat:
                 if (_detectedUboatCountDict.Count == 0)
                 {
-                    _travelMode = EscortTravelMode.Random;
-                    SetDestinationRandomly();
+                    SwitchTravelMode(_previousTravelMode);
                 } else {
                     SetDestinationOnClosestUboat();
-                }
-                break;
-            case EscortTravelMode.FollowFriendly:
-                if (_targetObject == null)
-                {
-                    _travelMode = EscortTravelMode.Random;
-                    SetDestinationRandomly();
-                } else {
-                    _destination = _targetObject.transform.position;
                 }
                 break;
             default:
                 CheckArrivedAtDestination(0.5f);
                 if (_detectedUboatCountDict.Count > 0)
                 {
-                    _travelMode = EscortTravelMode.TrackUboat;
-                    SetDestinationOnClosestUboat();
+                    SwitchTravelMode(EscortTravelMode.TrackUboat);
                 }
                 break;
         }
@@ -83,29 +74,48 @@ public class EscortBehaviour : MovingEntityBehaviour
         _rigidBody2D.velocity = directionalVector;
     }
 
+    private void SwitchTravelMode(EscortTravelMode newTravelMode)
+    {
+        if (_travelMode != newTravelMode)
+        {
+            _previousTravelMode = _travelMode;
+        }
+        _travelMode = newTravelMode;
+        switch(newTravelMode)
+        {
+            case EscortTravelMode.Random:
+                SetDestinationRandomly();
+                break;
+            case EscortTravelMode.TrackUboat:
+                SetDestinationOnClosestUboat();
+                break;
+            case EscortTravelMode.PatrolSeaway:
+                SetDestinationOnNextSeawayEnd();
+                break;
+            case EscortTravelMode.FollowPointOrder:
+                break;
+            default:
+                break;
+        }
+    }
+
     public void PatrolSeawayOrder(Vector3 end1Coordinates, Vector3 end2Coordinates)
     {
-        _travelMode = EscortTravelMode.PatrolSeaway;
+        _seaway1Coordinates = end1Coordinates;
+        _seaway2Coordinates = end2Coordinates;
         if (Vector3.Distance(transform.position, end1Coordinates) < Vector3.Distance(transform.position, end2Coordinates))
         {
             _destination = end1Coordinates;
-            _nextDestination = end2Coordinates;
         } else {
             _destination = end2Coordinates;
-            _nextDestination = end1Coordinates;
         }
+        SwitchTravelMode(EscortTravelMode.PatrolSeaway);
     }
 
     public void PointOrder(Vector3 coordinates)
     {
-        _travelMode = EscortTravelMode.FollowPointOrder;
         _destination = coordinates;
-    }
-
-    public void FollowFriendlyOrder(GameObject friendly)
-    {
-        _travelMode = EscortTravelMode.FollowFriendly;
-        _targetObject = friendly;
+        SwitchTravelMode(EscortTravelMode.FollowPointOrder);
     }
 
     public override void CheckArrivedAtDestination(float allowedRange)
@@ -114,12 +124,10 @@ public class EscortBehaviour : MovingEntityBehaviour
         {
             if (_travelMode == EscortTravelMode.Random || _travelMode == EscortTravelMode.FollowPointOrder)
             {
-                SetDestinationRandomly();
+                SwitchTravelMode(_previousTravelMode);
             } else if (_travelMode == EscortTravelMode.PatrolSeaway)
             {
-                var tempNextDestination = _nextDestination;
-                _nextDestination = _destination;
-                _destination = tempNextDestination;
+                SetDestinationOnNextSeawayEnd();
             }
         }
     }
@@ -143,9 +151,26 @@ public class EscortBehaviour : MovingEntityBehaviour
         }
     }
 
+    private void SetDestinationOnNextSeawayEnd()
+    {
+        if (Vector3.Distance(_seaway1Coordinates, transform.position) > Vector3.Distance(_seaway2Coordinates, transform.position))
+        {
+            _destination = _seaway1Coordinates;
+        } else {
+            _destination = _seaway2Coordinates;
+        }
+    }
+
     private bool SetDestinationOnClosestUboat()
     {
-        _destination = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position).transform.position;
+        try
+        {
+            _destination = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position).transform.position;
+        }
+        catch
+        {
+            SwitchTravelMode(_previousTravelMode);
+        }
 
         if (_destination == null)
         {
@@ -163,7 +188,7 @@ public class EscortBehaviour : MovingEntityBehaviour
             closestUboat = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position);
             if (closestUboat != null && Vector3.Distance(closestUboat.transform.position, transform.position) < _movingEntityData.attackRange)
             {
-                closestUboat.GetComponent<MovingEntityBehaviour>().Attacked(_movingEntityData.attack);
+                Attack(closestUboat);
             }
             yield return new WaitForSeconds(_movingEntityData.attackPeriod);
         }

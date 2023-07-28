@@ -7,14 +7,6 @@ public class UboatSpawner : MovingEntitySpawner
 {
     [SerializeField] private GameObject _radarCollection;
 
-    void Start()
-    {
-        for (int i = 1; i < 6; ++i)
-        {
-            //SpawnUboatRandomly();
-        }
-    }
-
     public void SpawnUboat(int id, float xPos, float yPos)
     {
         var initialPosition = new Vector3(xPos, yPos, 0);

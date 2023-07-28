@@ -55,7 +55,7 @@ public class AirfieldBehaviour : StationaryEntityBehaviour
     {
         _airfieldFlyingRange = Instantiate<GameObject>(_airfieldFlyingRangePrefab, transform.position, Quaternion.identity);
         _airfieldFlyingRange.transform.SetParent(transform);
-        _airfieldFlyingRange.transform.localScale = new Vector3(_flyingRange, _flyingRange, _flyingRange);
+        _airfieldFlyingRange.transform.localScale = new Vector3(_flyingRange * 2, _flyingRange * 2, _flyingRange * 2);
     }
 
     public void AttackRangeMouseUp()

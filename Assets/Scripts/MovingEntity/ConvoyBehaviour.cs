@@ -20,7 +20,7 @@ public class ConvoyBehaviour : MovingEntityBehaviour
     private ResourceType _resourceType;
     public ResourceType resourceType => _resourceType;
 
-    private float _resourceAmount = 10f;
+    private float _resourceAmount = 20f;
     public float resourceAmount => _resourceAmount;
 
     public override void Start()
@@ -76,6 +76,7 @@ public class ConvoyBehaviour : MovingEntityBehaviour
     public void SetRole(ResourceType resourceType)
     {
         _resourceType = resourceType;
+        GetComponent<SpriteRenderer>().color = ResourceData.ResourceTypeToColor(resourceType);
     }
 
     public override void CheckArrivedAtDestination(float allowedRange)
@@ -85,7 +86,8 @@ public class ConvoyBehaviour : MovingEntityBehaviour
             _currentPortID = _nextPortID;
             if (_currentPortID == _destinationPortID)
             {
-                GameManager.Instance.portManager.portDict[_destinationPortID].GetComponent<PortBehaviour>().ResourceFilled(_resourceAmount);
+                var resourceAmount = _resourceAmount * Convert.ToSingle(_movingEntityData.hp / _movingEntityData.fullHP);
+                GameManager.Instance.portManager.portDict[_destinationPortID].GetComponent<PortBehaviour>().ResourceFilled(resourceAmount);
                 Destroy(gameObject);
             }
             else
