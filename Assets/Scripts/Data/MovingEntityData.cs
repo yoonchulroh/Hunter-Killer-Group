@@ -14,7 +14,12 @@ public class MovingEntityData
 
     public float attackRange;
 
-    public MovingEntityData(int id, int hp, float speed, int attack, float attackPeriod, float attackRange)
+    public float attackHitChance;
+
+    public int defense;
+    public float defenseHitChance;
+
+    public MovingEntityData(int id, int hp, float speed, int attack, float attackPeriod, float attackRange, float attackHitChance, int defense, float defenseHitChance)
     {
         this.id = id;
         this.hp = hp;
@@ -23,6 +28,9 @@ public class MovingEntityData
         this.attack = attack;
         this.attackPeriod = attackPeriod;
         this.attackRange = attackRange;
+        this.attackHitChance = attackHitChance;
+        this.defense = defense;
+        this.defenseHitChance = defenseHitChance;
     }
 }
 
@@ -30,17 +38,17 @@ public class MovingEntityInitialData
 {
     public static MovingEntityData Convoy(int convoyID)
     {
-        return new MovingEntityData(convoyID, 50, 2f, 5, 1f, 1f);
+        return new MovingEntityData(id: convoyID, hp: 50, speed: 2f, attack: 5, attackPeriod: 1f, attackRange: 1f, attackHitChance: 0.5f, defense: 1, defenseHitChance: 1f);
     }
 
     public static MovingEntityData Escort(int escortID)
     {
-        return new MovingEntityData(escortID, 300, 5f, 20, 1f, 2f);
+        return new MovingEntityData(id: escortID, hp: 300, speed: 5f, attack: 40, attackPeriod: 1f, attackRange: 1f, attackHitChance: 0.8f, defense: 4, defenseHitChance: 1f);
     }
 
     public static MovingEntityData Uboat(int uboatID)
     {
-        return new MovingEntityData(uboatID, 100, 3f, 5, 0.25f, 2f);
+        return new MovingEntityData(id: uboatID, hp: 100, speed: 3f, attack: 20, attackPeriod: 0.25f, attackRange: 2f, attackHitChance: 0.9f, defense: 1, defenseHitChance: 0.2f);
     }
 }
 

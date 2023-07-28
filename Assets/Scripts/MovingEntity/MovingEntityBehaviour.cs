@@ -58,9 +58,20 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    protected void Attack(GameObject target)
+    {
+        if (Random.Range(0, 1) < _movingEntityData.attackHitChance)
+        {
+            target.GetComponent<MovingEntityBehaviour>().Attacked(_movingEntityData.attack);
+        }
+    }
+
     public void Attacked(int damage)
     {
-        _movingEntityData.hp -= damage;
+        if (Random.Range(0, 1) < _movingEntityData.defenseHitChance)
+        {
+            _movingEntityData.hp -= (damage / _movingEntityData.defense);
+        }
         //_hpText.GetComponent<LabelTextBehaviour>().SetHpLabel(_movingEntityData.hp);
         if (_movingEntityData.hp <= 0)
         {

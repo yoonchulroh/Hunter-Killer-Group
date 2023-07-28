@@ -188,7 +188,7 @@ public class EscortBehaviour : MovingEntityBehaviour
             closestUboat = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position);
             if (closestUboat != null && Vector3.Distance(closestUboat.transform.position, transform.position) < _movingEntityData.attackRange)
             {
-                closestUboat.GetComponent<MovingEntityBehaviour>().Attacked(_movingEntityData.attack);
+                Attack(closestUboat);
             }
             yield return new WaitForSeconds(_movingEntityData.attackPeriod);
         }

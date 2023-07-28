@@ -128,7 +128,7 @@ public class UboatBehaviour : MovingEntityBehaviour
             closestFriendly = GameManager.Instance.detectionManager.ClosestDetectedFriendly(transform.position);
             if (closestFriendly != null && Vector3.Distance(closestFriendly.transform.position, transform.position) < _movingEntityData.attackRange)
             {
-                closestFriendly.GetComponent<MovingEntityBehaviour>().Attacked(_movingEntityData.attack);
+                Attack(closestFriendly);
             }
             yield return new WaitForSeconds(_movingEntityData.attackPeriod);
         }
