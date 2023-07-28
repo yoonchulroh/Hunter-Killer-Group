@@ -163,7 +163,14 @@ public class EscortBehaviour : MovingEntityBehaviour
 
     private bool SetDestinationOnClosestUboat()
     {
-        _destination = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position).transform.position;
+        try
+        {
+            _destination = GameManager.Instance.detectionManager.ClosestDetectedUboat(transform.position).transform.position;
+        }
+        catch
+        {
+            SwitchTravelMode(_previousTravelMode);
+        }
 
         if (_destination == null)
         {

@@ -4,6 +4,8 @@ public class MovingEntityData
 
     public int hp;
 
+    public int fullHP;
+
     public float speed;
 
     public int attack;
@@ -16,6 +18,7 @@ public class MovingEntityData
     {
         this.id = id;
         this.hp = hp;
+        this.fullHP = hp;
         this.speed = speed;
         this.attack = attack;
         this.attackPeriod = attackPeriod;
