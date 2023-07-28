@@ -3,10 +3,12 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     private EditManager _editManager;
+    private TimeManager _timeManager;
 
     void Start() 
     {
         _editManager = GameManager.Instance.editManager;
+        _timeManager = GameManager.Instance.timeManager;
     }
 
     public void OnClickConvoyButton()
@@ -32,5 +34,10 @@ public class UIManager : MonoBehaviour
     public void OnClickDeleteButton()
     {
         _editManager.SwitchEditMode(EditMode.Delete);
+    }
+
+    public void OnClickPlayPauseButton()
+    {
+        _timeManager.PlayPause();
     }
 }

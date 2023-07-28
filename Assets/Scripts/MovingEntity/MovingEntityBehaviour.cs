@@ -88,6 +88,7 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        /*
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
@@ -98,5 +99,6 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
+        */
     }
 }

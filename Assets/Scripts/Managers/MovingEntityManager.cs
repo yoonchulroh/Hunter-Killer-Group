@@ -7,13 +7,13 @@ public class MovingEntityManager : MonoBehaviour
     protected Dictionary<int, GameObject> _movingEntityDict = new Dictionary<int, GameObject>();
     public Dictionary<int, GameObject> movingEntityDict => _movingEntityDict;
 
-    public int movingEntityCount = 0;
-    //public int movingEntityCount => _movingEntityCount;
+    protected int _movingEntityCount = 0;
+    public int movingEntityCount => _movingEntityCount;
 
     public void AddNewEntity(int id, GameObject entity)
     {
         _movingEntityDict.Add(id, entity);
-        movingEntityCount += 1;
+        _movingEntityCount += 1;
     }
 
     public List<GameObject> EntitiesInRange(float xPos, float yPos, float range)
