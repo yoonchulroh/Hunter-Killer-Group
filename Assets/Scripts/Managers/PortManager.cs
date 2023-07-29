@@ -34,6 +34,19 @@ public class PortManager : MonoBehaviour
         }
     }
 
+    public bool PortInRange(float xPos, float yPos, float range)
+    {
+        bool portExists = false;
+        foreach (GameObject port in portDict.Values)
+        {
+            if ( Vector2.Distance(port.GetComponent<PortBehaviour>().Coordinate(), new Vector2(xPos, yPos) ) < range)
+            {
+                portExists = true;
+            }
+        }
+        return portExists;
+    }
+
     public int FindNextPort(int currentPortID, int destinationPortID)
     {
         Dictionary<int, float> distanceDict = new Dictionary<int, float>();
@@ -75,7 +88,7 @@ public class PortManager : MonoBehaviour
 
             }
             
-            minDistPort = FindMinDistPort(unvisitedList, distanceDict);
+            minDistPort = FindMinDistPortInUnvisited(unvisitedList, distanceDict);
         }
         if (previousPortDict[destinationPortID] == -1)
         {
@@ -111,7 +124,7 @@ public class PortManager : MonoBehaviour
         }
     }
 
-    private int FindMinDistPort(List<int> unvisitedList, Dictionary<int, float> distanceDict)
+    private int FindMinDistPortInUnvisited(List<int> unvisitedList, Dictionary<int, float> distanceDict)
     {
         if (unvisitedList.Count == 0)
         {
