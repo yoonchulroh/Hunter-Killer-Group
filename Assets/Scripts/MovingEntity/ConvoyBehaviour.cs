@@ -120,103 +120,14 @@ public class ConvoyBehaviour : MovingEntityBehaviour
 
     private bool SetNextDestination()
     {
-        Dictionary<int, float> distanceDict = new Dictionary<int, float>();
-        Dictionary<int, int> previousPortDict = new Dictionary<int, int>();
-        List<int> unvisitedList = new List<int>();
-
-        foreach(int portID in GameManager.Instance.portManager.portDict.Keys)
-        {
-            distanceDict.Add(portID, float.PositiveInfinity);
-            previousPortDict.Add(portID, -1);
-            unvisitedList.Add(portID);
-        }
-
-        distanceDict[_currentPortID] = 0;
-        previousPortDict[_currentPortID] = -2;
-        int minDistPort = _currentPortID;
-
-        while (unvisitedList.Count > 0 && distanceDict[minDistPort] != float.PositiveInfinity)
-        {
-            unvisitedList.Remove(minDistPort);
-            try
-            {
-                foreach (object[] idDistArr in GameManager.Instance.seawayManager.seawayDict[minDistPort])
-                {
-                    if (unvisitedList.Contains(Convert.ToInt32(idDistArr[0])))
-                    {
-                        if ( distanceDict[minDistPort] + Convert.ToSingle(idDistArr[1]) < distanceDict[Convert.ToInt32(idDistArr[0])] )
-                        {
-                            distanceDict[Convert.ToInt32(idDistArr[0])] = distanceDict[minDistPort] + Convert.ToSingle(idDistArr[1]);
-                            previousPortDict[Convert.ToInt32(idDistArr[0])] = minDistPort;
-                        }
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-            
-            minDistPort = FindMinDistPort(unvisitedList, distanceDict);
-        }
-        if (previousPortDict[_destinationPortID] == -1)
+        _nextPortID = GameManager.Instance.portManager.FindNextPort(_currentPortID, _destinationPortID);
+        if (_nextPortID < 0)
         {
             return false;
-        }
-        else if (previousPortDict[_destinationPortID] == -2)
+        } else 
         {
-            _nextPortID = _currentPortID;
-            _destination = GameManager.Instance.portManager.portDict[_currentPortID].GetComponent<PortBehaviour>().Coordinate();
+            _destination = GameManager.Instance.portManager.portDict[_nextPortID].GetComponent<PortBehaviour>().Coordinate();
             return true;
-        }
-        else
-        {
-            var prevPort = previousPortDict[_destinationPortID];
-            var endReached = false;
-            if (prevPort == _currentPortID)
-            {
-                _nextPortID = _destinationPortID;
-                _destination = GameManager.Instance.portManager.portDict[_destinationPortID].GetComponent<PortBehaviour>().Coordinate();
-                return true;
-            }
-            while (!endReached)
-            {
-                if (previousPortDict[prevPort] != _currentPortID)
-                {
-                    prevPort = previousPortDict[prevPort];
-                }
-                else
-                {
-                    endReached = true;
-                }
-            }
-            _nextPortID = prevPort;
-            _destination = GameManager.Instance.portManager.portDict[prevPort].GetComponent<PortBehaviour>().Coordinate();
-            return true;
-        }
-    }
-
-    private int FindMinDistPort(List<int> unvisitedList, Dictionary<int, float> distanceDict)
-    {
-        if (unvisitedList.Count == 0)
-        {
-            return -1;
-        }
-        else
-        {
-            int minDistPort = unvisitedList[0];
-            float minDist = distanceDict[minDistPort];
-
-            foreach (int portID in unvisitedList)
-            {
-                if (distanceDict[portID] < minDist)
-                {
-                    minDistPort = portID;
-                    minDist = distanceDict[portID];
-                }
-            }
-
-            return minDistPort;
         }
     }
 }

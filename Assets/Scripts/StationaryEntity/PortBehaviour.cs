@@ -49,10 +49,11 @@ public class PortBehaviour : StationaryEntityBehaviour
             resourceNeedLabel.GetComponent<LabelTextBehaviour>().SetResourceAmountLabel(_resourceNeed);
 
             _resourceNeedLabel = resourceNeedLabel;
+
+            StartCoroutine(SpawnConvoyPeriodically());
         } else if (_portType == PortType.Producer)
         {
             transform.localScale = new Vector3(2, 2, 2);
-            StartCoroutine(SpawnConvoyPeriodically());
         }
     }
 
@@ -91,7 +92,10 @@ public class PortBehaviour : StationaryEntityBehaviour
     {
         while (true)
         {
-            _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id, _resourceType);
+            if (GameManager.Instance.portManager.FindNextPort(_id, GameManager.Instance.portManager.producerPortDict[_resourceType]) > 0)
+            {
+                _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(GameManager.Instance.portManager.producerPortDict[_resourceType], _id, _resourceType);
+            }
             yield return new WaitForSeconds(_convoySpawnPeriod);
         }
     }
@@ -100,7 +104,7 @@ public class PortBehaviour : StationaryEntityBehaviour
     {
         if (GameManager.Instance.editManager.editMode == EditMode.CreateConvoys && _portType == PortType.Producer)
         {
-            _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id, _resourceType);
+            //_convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id, _resourceType);
         }
         else if (GameManager.Instance.editManager.editMode == EditMode.CreateSeawaysOrigin)
         {

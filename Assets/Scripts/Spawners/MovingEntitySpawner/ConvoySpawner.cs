@@ -18,11 +18,10 @@ public class ConvoySpawner : MovingEntitySpawner
         }
     }
 
-    public void SpawnConvoyOnPort(int originID, ResourceType resourceType)
+    public void SpawnConvoyOnPort(int originID, int destinationID, ResourceType resourceType)
     {
         var portCount = GameManager.Instance.portManager.portDict.Count;
         var convoyCount = GameManager.Instance.convoyManager.movingEntityDict.Count;
-        var destinationID = GameManager.Instance.portManager.consumerPortDict[resourceType][Random.Range(0, GameManager.Instance.portManager.consumerPortDict[resourceType].Count)];
         SpawnConvoy(convoyCount + 1, originID, destinationID, resourceType);
     }
 }
