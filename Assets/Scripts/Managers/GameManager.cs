@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public DetectionManager detectionManager { get; private set; }
     public CameraManager cameraManager { get; private set; }
     public TimeManager timeManager { get; private set; }
+    public IndustryManager industryManager { get; private set; }
 
     private void Awake()
     {
@@ -37,5 +38,6 @@ public class GameManager : MonoBehaviour
         detectionManager = GetComponentInChildren<DetectionManager>();
         cameraManager = GetComponentInChildren<CameraManager>();
         timeManager = GetComponentInChildren<TimeManager>();
+        industryManager = GetComponentInChildren<IndustryManager>();
     }
 }

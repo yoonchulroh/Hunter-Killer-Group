@@ -22,6 +22,11 @@ public class PortSpawner : StationaryEntitySpawner
         SpawnPortRandomly(10, PortType.Producer, ResourceType.Yellow);
         SpawnPortRandomly(11, PortType.Consumer, ResourceType.Yellow);
         SpawnPortRandomly(12, PortType.Consumer, ResourceType.Yellow);
+
+        SpawnPortRandomly(13, PortType.Consumer, ResourceType.Red);
+        SpawnPortRandomly(14, PortType.Consumer, ResourceType.Blue);
+        SpawnPortRandomly(15, PortType.Consumer, ResourceType.Green);
+        SpawnPortRandomly(16, PortType.Consumer, ResourceType.Yellow);
     }
 
     void SpawnPort(int ID, float xPos, float yPos, PortType portType, ResourceType resourceType)
@@ -37,6 +42,15 @@ public class PortSpawner : StationaryEntitySpawner
         var xLimit = GameManager.Instance.cameraManager.gameObjectXLimit;
         var yLimit = GameManager.Instance.cameraManager.gameObjectYLimit;
 
-        SpawnPort(id, Random.Range(-xLimit, xLimit), Random.Range(-yLimit, yLimit), portType, resourceType);
+        var portExistsInRange = true;
+        float xPos = 0;
+        float yPos = 0;
+        while (portExistsInRange)
+        {
+            xPos = Random.Range(-xLimit, xLimit);
+            yPos = Random.Range(-yLimit, yLimit);
+            portExistsInRange = GameManager.Instance.portManager.PortInRange(xPos, yPos, 4f);
+        }
+        SpawnPort(id, xPos, yPos, portType, resourceType);
     }
 }

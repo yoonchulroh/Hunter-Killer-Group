@@ -93,7 +93,6 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
 
     void OnMouseDown()
     {
-        GameManager.Instance.editManager.SwitchEditMode(EditMode.Select, gameObject);
         GameManager.Instance.editManager.selectedObject = gameObject;
     }
 

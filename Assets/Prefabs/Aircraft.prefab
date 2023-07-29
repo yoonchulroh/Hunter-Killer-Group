@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6175339249366029088}
   - component: {fileID: -5805973307106247569}
   m_Layer: 0
-  m_Name: AirfieldAttackRange
+  m_Name: Aircraft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

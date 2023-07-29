@@ -7,7 +7,10 @@ public class StationaryEntityBehaviour : MonoBehaviour
     protected int _id;
     public int id => _id;
     protected float _xCoordinate;
+    public float xCoordinate => _xCoordinate;
+
     protected float _yCoordinate;
+    public float yCoordinate => _yCoordinate;
 
     public virtual void SetID(int id)
     {

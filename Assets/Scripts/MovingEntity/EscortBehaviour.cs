@@ -18,6 +18,9 @@ public class EscortBehaviour : MovingEntityBehaviour
     private EscortTravelMode _previousTravelMode;
     private Dictionary<GameObject, int> _detectedUboatCountDict => GameManager.Instance.detectionManager.detectedUboatCountDict;
 
+    private String _currentStatus;
+    public String currentStatus => _currentStatus;
+
     private GameObject _shipRadar;
 
     private Vector3 _seaway1Coordinates;
@@ -84,15 +87,19 @@ public class EscortBehaviour : MovingEntityBehaviour
         switch(newTravelMode)
         {
             case EscortTravelMode.Random:
+                _currentStatus = "Patrolling";
                 SetDestinationRandomly();
                 break;
             case EscortTravelMode.TrackUboat:
+                _currentStatus = "Tracking Detected Uboat";
                 SetDestinationOnClosestUboat();
                 break;
             case EscortTravelMode.PatrolSeaway:
+                _currentStatus = "Patrolling Seaway";
                 SetDestinationOnNextSeawayEnd();
                 break;
             case EscortTravelMode.FollowPointOrder:
+                _currentStatus = "Moving to Designated Area";
                 break;
             default:
                 break;

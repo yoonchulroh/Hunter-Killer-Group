@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2621369630272696599}
   - component: {fileID: 602034177640908782}
   - component: {fileID: 418151862701371129}
+  - component: {fileID: 2421597321077401894}
   m_Layer: 0
   m_Name: Airfield
   m_TagString: Untagged
@@ -97,5 +98,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c8adae7d9d64442b0fb33351fcf2c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _airfieldAttackRangePrefab: {fileID: 678978639857317325, guid: d812b4fb6c97440a0aebd84f5cf03fb4, type: 3}
+  _aircraftPrefab: {fileID: 678978639857317325, guid: d812b4fb6c97440a0aebd84f5cf03fb4, type: 3}
   _airfieldFlyingRangePrefab: {fileID: 678978639857317325, guid: 102a34f33ad0e452892bd5b2af4963d3, type: 3}
+--- !u!58 &2421597321077401894
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8243824604939650212}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

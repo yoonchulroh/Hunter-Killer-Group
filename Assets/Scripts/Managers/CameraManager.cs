@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] GameObject _mainCamera;
+    [SerializeField] GameObject _backgroundClickDetector;
 
     private Vector3 _cameraPosition;
     public Vector3 cameraPosition => _cameraPosition;
@@ -34,6 +35,8 @@ public class CameraManager : MonoBehaviour
     {
         _gameObjectYLimit = yLimit;
         _gameObjectXLimit = xLimit;
+
+        _backgroundClickDetector.transform.localScale = new Vector3(xLimit * 2, yLimit * 2, 1);
     }
 
     void Awake()

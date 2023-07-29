@@ -24,10 +24,7 @@ public class BackgroundClickDetector : MonoBehaviour, IPointerClickHandler
             {
                 _escortSpawner.GetComponent<EscortSpawner>().SpawnEscortOnMousePosition();
             }
-            if (GameManager.Instance.editManager.editMode == EditMode.Select)
-            {
-                GameManager.Instance.editManager.SwitchEditMode(EditMode.None);
-            }
+            GameManager.Instance.editManager.selectedObject = null;
         }
     }
 
@@ -35,7 +32,7 @@ public class BackgroundClickDetector : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (GameManager.Instance.editManager.editMode == EditMode.Select && GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
+            if (GameManager.Instance.editManager.selectedObject != null && GameManager.Instance.editManager.selectedObject.tag == "Escort")
             {
                 GameManager.Instance.editManager.selectedObject.GetComponent<EscortBehaviour>().PointOrder(Camera.main.ScreenToWorldPoint( new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0) ));
             }

@@ -15,9 +15,12 @@ public class EscortSpawner : MovingEntitySpawner
 
     private void SpawnEscort(int id, Vector3 position)
     {
-        var escort = SpawnEntity(position, MovingEntityInitialData.Escort(id));
-        GameManager.Instance.escortManager.AddNewEntity(id, escort);
-        
-        _radarCollection.GetComponent<RadarSpawner>().SpawnRadarOnShip(escort, RadarInitialData.Escort());
+        if (GameManager.Instance.industryManager.UseIndustrialCapacity(100))
+        {
+            var escort = SpawnEntity(position, MovingEntityInitialData.Escort(id));
+            GameManager.Instance.escortManager.AddNewEntity(id, escort);
+            
+            _radarCollection.GetComponent<RadarSpawner>().SpawnRadarOnShip(escort, RadarInitialData.Escort());
+        }
     }
 }
