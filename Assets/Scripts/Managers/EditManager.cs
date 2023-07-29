@@ -10,7 +10,6 @@ public enum EditMode
     CreateRadar,
     CreateEscort,
     Delete,
-    Select,
     None
 }
 
@@ -27,16 +26,16 @@ public class EditManager : MonoBehaviour
     public int seawayOrigin;
     public int seawayDestinationCandidate;
 
-    public GameObject selectedObject;
+    public GameObject selectedObject = null;
 
     void Start()
     {
-        _editMode = EditMode.CreateSeawaysOrigin;
+        _editMode = EditMode.None;
     }
 
     void Update()
     {
-        if (_editMode == EditMode.Select)
+        if (selectedObject != null)
         {
             _identificationField.GetComponent<TextMeshProUGUI>().text = selectedObject.GetComponent<MovingEntityBehaviour>().identification;
             _hpField.GetComponent<TextMeshProUGUI>().text = Convert.ToString(selectedObject.GetComponent<MovingEntityBehaviour>().movingEntityData.hp);
@@ -44,38 +43,19 @@ public class EditManager : MonoBehaviour
             if (selectedObject.tag == "Escort")
             {
                 _statusField.GetComponent<TextMeshProUGUI>().text = selectedObject.GetComponent<EscortBehaviour>().currentStatus;
+            } else {
+                _statusField.GetComponent<TextMeshProUGUI>().text = "";
             }
+        } else {
+            _identificationField.GetComponent<TextMeshProUGUI>().text = "";
+            _hpField.GetComponent<TextMeshProUGUI>().text = "";
+            _roleField.GetComponent<TextMeshProUGUI>().text = "";
+            _statusField.GetComponent<TextMeshProUGUI>().text = "";
         }
     }
 
-    public void SwitchEditMode(EditMode target, GameObject selectedObject = null)
+    public void SwitchEditMode(EditMode target)
     {
         _editMode = target;
-        if (target == EditMode.Select && selectedObject != null)
-        {
-            Select(selectedObject);
-        }
-        else {
-            Unselect();
-        }
-    }
-
-    private void Select(GameObject selectedObject)
-    {
-        _identificationField.GetComponent<TextMeshProUGUI>().text = selectedObject.GetComponent<MovingEntityBehaviour>().identification;
-        _hpField.GetComponent<TextMeshProUGUI>().text = Convert.ToString(selectedObject.GetComponent<MovingEntityBehaviour>().movingEntityData.hp);
-        _roleField.GetComponent<TextMeshProUGUI>().text = selectedObject.GetComponent<MovingEntityBehaviour>().role;
-        if (selectedObject.tag == "Escort")
-        {
-            _statusField.GetComponent<TextMeshProUGUI>().text = selectedObject.GetComponent<EscortBehaviour>().currentStatus;
-        }
-    }
-
-    private void Unselect()
-    {
-        _identificationField.GetComponent<TextMeshProUGUI>().text = "";
-        _hpField.GetComponent<TextMeshProUGUI>().text = "";
-        _roleField.GetComponent<TextMeshProUGUI>().text = "";
-        _statusField.GetComponent<TextMeshProUGUI>().text = "";
     }
 }
