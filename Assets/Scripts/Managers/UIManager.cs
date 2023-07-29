@@ -1,14 +1,23 @@
 using UnityEngine;
+using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour
 {
     private EditManager _editManager;
     private TimeManager _timeManager;
 
+    [SerializeField] private GameObject _icField;
+
     void Start() 
     {
         _editManager = GameManager.Instance.editManager;
         _timeManager = GameManager.Instance.timeManager;
+    }
+
+    void Update()
+    {
+        _icField.GetComponent<TextMeshProUGUI>().text = Convert.ToString(GameManager.Instance.industryManager.industrialCapacity);
     }
 
     public void OnClickConvoyButton()

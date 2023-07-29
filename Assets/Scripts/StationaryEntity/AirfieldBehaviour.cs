@@ -23,7 +23,7 @@ public class AirfieldBehaviour : StationaryEntityBehaviour
         _airfieldAttackRange = Instantiate<GameObject>(_airfieldAttackRangePrefab, new Vector3(_targetXCoordinate, _targetYCoordinate, 1), Quaternion.identity);
         _airfieldAttackRange.GetComponent<AirfieldAttackRangeBehaviour>().SetParent(gameObject);
         _airfieldAttackRange.transform.SetParent(gameObject.transform);
-        _airfieldAttackRange.transform.localScale = new Vector3(_attackRange, _attackRange, _attackRange);
+        _airfieldAttackRange.transform.localScale = new Vector3(_attackRange * 2, _attackRange * 2, _attackRange * 2);
 
         StartCoroutine(AttackUboatsInRange());
     }

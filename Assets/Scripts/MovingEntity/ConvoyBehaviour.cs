@@ -20,7 +20,7 @@ public class ConvoyBehaviour : MovingEntityBehaviour
     private ResourceType _resourceType;
     public ResourceType resourceType => _resourceType;
 
-    private float _resourceAmount = 20f;
+    private float _resourceAmount = 50f;
     public float resourceAmount => _resourceAmount;
 
     public override void Start()

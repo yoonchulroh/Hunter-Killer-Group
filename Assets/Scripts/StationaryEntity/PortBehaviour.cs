@@ -22,7 +22,7 @@ public class PortBehaviour : StationaryEntityBehaviour
     public float resourceNeed => _resourceNeed;
     private float resourceFillSpeed = 1f;
 
-    private float _convoySpawnPeriod = 2f;
+    private float _convoySpawnPeriod = 5f;
 
     void Awake()
     {
