@@ -7,5 +7,6 @@ public class UboatBaseSpawner : StationaryEntitySpawner
     void Start()
     {
         SpawnEntityRandomly(1);
+        SpawnEntityRandomly(2);
     }
 }
