@@ -25,6 +25,8 @@ public class UboatBehaviour : MovingEntityBehaviour
         _identification = "U-" + movingEntityData.id.ToString();
         _role = "Type VII";
 
+        Hide();
+
         /*
         var identificationText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
         identificationText.transform.SetParent(gameObject.transform, false);
@@ -75,12 +77,12 @@ public class UboatBehaviour : MovingEntityBehaviour
 
     public void Reveal()
     {
-        GetComponent<SpriteRenderer>().color = new Color(255, 0, 0);
+        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 1);
     }
 
     public void Hide()
     {
-        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
     }
 
     public override void CheckArrivedAtDestination(float allowedRange)

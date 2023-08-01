@@ -15,6 +15,8 @@ public class RadarBehaviour : MonoBehaviour
     {
         _backgroundClickDetector = GameObject.FindWithTag("BackgroundClickDetector");
         gameObject.transform.localScale = new Vector3(_radarProperties.range, _radarProperties.range, _radarProperties.range);
+
+        Hide();
     }
 
     void Update()
@@ -30,6 +32,16 @@ public class RadarBehaviour : MonoBehaviour
     public void SetRadarParent(GameObject parent)
     {
         _parent = parent;
+    }
+
+    public void Reveal()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(6, 245, 3, 0.72f);
+    }
+
+    public void Hide()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
     }
     
     void OnTriggerEnter2D(Collider2D collision)

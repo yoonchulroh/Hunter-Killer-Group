@@ -14,8 +14,8 @@ public class TimeManager : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1f;
-        _timeStatus = TimeStatus.Speed1;
+        Time.timeScale = 0f;
+        _timeStatus = TimeStatus.Paused;
     }
 
     public void PlayPause()
