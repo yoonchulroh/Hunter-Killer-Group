@@ -31,8 +31,8 @@ public class EscortBehaviour : MovingEntityBehaviour
     {
         base.Start();
 
-        _identification = "DD-" + movingEntityData.id.ToString();
-        _role = "Clemson-class";
+        _identification = "Task Force " + movingEntityData.id.ToString();
+        _role = "Small Destroyer Group";
 
         /*
         var identificationText = Instantiate<GameObject>(_labelPrefab, new Vector3(0, 1, 0), Quaternion.identity);
@@ -56,7 +56,7 @@ public class EscortBehaviour : MovingEntityBehaviour
         switch (_travelMode)
         {
             case EscortTravelMode.TrackUboat:
-                if (_detectedUboatCountDict.Count == 0)
+                if (GameManager.Instance.detectionManager.DistanceToClosestDetectedUboat(transform.position) > 5)
                 {
                     SwitchTravelMode(_previousTravelMode);
                 } else {
@@ -65,7 +65,7 @@ public class EscortBehaviour : MovingEntityBehaviour
                 break;
             default:
                 CheckArrivedAtDestination(0.5f);
-                if (_detectedUboatCountDict.Count > 0)
+                if (GameManager.Instance.detectionManager.DistanceToClosestDetectedUboat(transform.position) < 5)
                 {
                     SwitchTravelMode(EscortTravelMode.TrackUboat);
                 }

@@ -8,8 +8,8 @@ public class ConsumerPortBehaviour : PortBehaviour
     private List<ResourceNeed> _resourceNeedList = new List<ResourceNeed>();
     public List<ResourceNeed> resourceNeedList => _resourceNeedList;
 
-    private float _convoySpawnPeriod = 5f;
-    private float _needGenerationPeriod = 20f;
+    private float _convoySpawnPeriod = 10f;
+    private float _needGenerationPeriod = 30f;
 
     private GameObject _resourceNeedLabel;
 
@@ -79,7 +79,7 @@ public class ConsumerPortBehaviour : PortBehaviour
     {
         while (true)
         {
-            _resourceNeedList.Add(new ResourceNeed((ResourceType)Random.Range(1, 4), 50, 30f));
+            _resourceNeedList.Add(new ResourceNeed((ResourceType)Random.Range(1, 4), 100, 60f));
             yield return new WaitForSeconds(_needGenerationPeriod);
         }
     }
