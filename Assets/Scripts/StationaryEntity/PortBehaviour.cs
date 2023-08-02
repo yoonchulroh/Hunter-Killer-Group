@@ -4,25 +4,14 @@ using UnityEngine;
 
 public class PortBehaviour : StationaryEntityBehaviour
 {
-    [SerializeField] private GameObject _seawayPrefab;
-    [SerializeField] private GameObject _labelPrefab;
-    private GameObject _seawayCandidate;
+    [SerializeField] protected GameObject _seawayPrefab;
+    [SerializeField] protected GameObject _labelPrefab;
+    protected GameObject _seawayCandidate;
 
-    private GameObject _convoySpawner;
-    private GameObject _seawaySpawner;
+    protected GameObject _convoySpawner;
+    protected GameObject _seawaySpawner;
 
     public char alphabetID;
-
-    private PortType _portType;
-    public PortType portType => _portType;
-    private ResourceType _resourceType;
-    public ResourceType resourceType => _resourceType;
-    private GameObject _resourceNeedLabel;
-    private float _resourceNeed = 0f;
-    public float resourceNeed => _resourceNeed;
-    private float resourceFillSpeed = 1f;
-
-    private float _convoySpawnPeriod = 5f;
 
     void Awake()
     {
@@ -41,29 +30,6 @@ public class PortBehaviour : StationaryEntityBehaviour
         roleLabel.transform.SetParent(gameObject.transform, false);
         roleLabel.GetComponent<LabelTextBehaviour>().SetRoleLabel(gameObject);
         */
-
-        if (_portType == PortType.Consumer)
-        {
-            var resourceNeedLabel = Instantiate<GameObject>(_labelPrefab, new Vector3(1.5f, 0, 0), Quaternion.identity);
-            resourceNeedLabel.transform.SetParent(gameObject.transform, false);
-            resourceNeedLabel.GetComponent<LabelTextBehaviour>().SetResourceAmountLabel(_resourceNeed);
-
-            _resourceNeedLabel = resourceNeedLabel;
-
-            StartCoroutine(SpawnConvoyPeriodically());
-        } else if (_portType == PortType.Producer)
-        {
-            transform.localScale = new Vector3(2, 2, 2);
-        }
-    }
-
-    void Update()
-    {
-        if (_portType == PortType.Consumer)
-        {
-            _resourceNeed += resourceFillSpeed * Time.deltaTime;
-            _resourceNeedLabel.GetComponent<LabelTextBehaviour>().SetResourceAmountLabel(_resourceNeed);
-        }
     }
 
     public override void SetID(int id)
@@ -72,41 +38,9 @@ public class PortBehaviour : StationaryEntityBehaviour
         alphabetID = (char) (id+64);
     }
 
-    public void SetPortRole(PortType portType, ResourceType resourceType)
-    {
-        _portType = portType;
-        _resourceType = resourceType;
-        GetComponent<SpriteRenderer>().color = ResourceData.ResourceTypeToColor(resourceType);
-    }
-
-    public void ResourceFilled(float amount)
-    {
-        _resourceNeed -= amount;
-        if (_resourceNeed < 0)
-        {
-            _resourceNeed = 0;
-        }
-    }
-
-    private IEnumerator SpawnConvoyPeriodically()
-    {
-        while (true)
-        {
-            if (GameManager.Instance.portManager.FindNextPort(_id, GameManager.Instance.portManager.producerPortDict[_resourceType]) > 0)
-            {
-                _convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(GameManager.Instance.portManager.producerPortDict[_resourceType], _id, _resourceType);
-            }
-            yield return new WaitForSeconds(_convoySpawnPeriod);
-        }
-    }
-
     void OnMouseDown()
     {
-        if (GameManager.Instance.editManager.editMode == EditMode.CreateConvoys && _portType == PortType.Producer)
-        {
-            //_convoySpawner.GetComponent<ConvoySpawner>().SpawnConvoyOnPort(_id, _resourceType);
-        }
-        else if (GameManager.Instance.editManager.editMode == EditMode.CreateSeawaysOrigin)
+        if (GameManager.Instance.editManager.editMode == EditMode.CreateSeawaysOrigin)
         {
             GameManager.Instance.editManager.seawayOrigin = _id;
             GameManager.Instance.editManager.seawayDestinationCandidate = _id;

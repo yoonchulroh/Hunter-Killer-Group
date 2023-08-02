@@ -32,4 +32,9 @@ public class IndustryManager : MonoBehaviour
             return true;
         }
     }
+
+    public void RefundIndustrialCapacity(int amount)
+    {
+        _industrialCapacity += Convert.ToDouble(amount);
+    }
 }

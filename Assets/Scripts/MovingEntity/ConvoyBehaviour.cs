@@ -20,8 +20,8 @@ public class ConvoyBehaviour : MovingEntityBehaviour
     private ResourceType _resourceType;
     public ResourceType resourceType => _resourceType;
 
-    private float _resourceAmount = 50f;
-    public float resourceAmount => _resourceAmount;
+    private int _resourceAmount = 50;
+    public int resourceAmount => _resourceAmount;
 
     public override void Start()
     {
@@ -86,8 +86,9 @@ public class ConvoyBehaviour : MovingEntityBehaviour
             _currentPortID = _nextPortID;
             if (_currentPortID == _destinationPortID)
             {
-                var resourceAmount = _resourceAmount * Convert.ToSingle(_movingEntityData.hp / _movingEntityData.fullHP);
-                GameManager.Instance.portManager.portDict[_destinationPortID].GetComponent<PortBehaviour>().ResourceFilled(resourceAmount);
+                var resourceAmount = _resourceAmount * _movingEntityData.hp / _movingEntityData.fullHP;
+                GameManager.Instance.portManager.portDict[_destinationPortID].GetComponent<ConsumerPortBehaviour>().ResourceFilled(_resourceType, resourceAmount);
+                GameManager.Instance.industryManager.RefundIndustrialCapacity(10 * _movingEntityData.hp / _movingEntityData.fullHP);
                 Destroy(gameObject);
             }
             else

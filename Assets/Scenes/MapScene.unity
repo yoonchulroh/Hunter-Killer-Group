@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 8243824604939650212, guid: 5dafe4f53ac974dc0a7eb22a3477c1b6, type: 3}
+  _secondEntityPrefab: {fileID: 0}
 --- !u!1 &195849196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,6 +2261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 5284635431243213282, guid: aa474bf8ffa39498eb1fbed337fa2e4a, type: 3}
+  _secondEntityPrefab: {fileID: 0}
 --- !u!1 &1032833133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +2427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 2464769148631190188, guid: 7342c7637ff8e44d88570fd038d8b3fe, type: 3}
+  _secondEntityPrefab: {fileID: 2464769148631190188, guid: 4ac909c3ea1a241e38279e5971560ac3, type: 3}
 --- !u!4 &1083773962
 Transform:
   m_ObjectHideFlags: 0

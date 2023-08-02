@@ -11,33 +11,30 @@ public class PortSpawner : StationaryEntitySpawner
     {
         _portManager = GameManager.Instance.portManager;
         SpawnPortRandomly(1, PortType.Producer, ResourceType.Red);
-        SpawnPortRandomly(2, PortType.Consumer, ResourceType.Red);
-        SpawnPortRandomly(3, PortType.Consumer, ResourceType.Red);
-        SpawnPortRandomly(4, PortType.Producer, ResourceType.Blue);
-        SpawnPortRandomly(5, PortType.Consumer, ResourceType.Blue);
-        SpawnPortRandomly(6, PortType.Consumer, ResourceType.Blue);
-        SpawnPortRandomly(7, PortType.Producer, ResourceType.Green);
-        SpawnPortRandomly(8, PortType.Consumer, ResourceType.Green);
-        SpawnPortRandomly(9, PortType.Consumer, ResourceType.Green);
-        SpawnPortRandomly(10, PortType.Producer, ResourceType.Yellow);
-        SpawnPortRandomly(11, PortType.Consumer, ResourceType.Yellow);
-        SpawnPortRandomly(12, PortType.Consumer, ResourceType.Yellow);
+        SpawnPortRandomly(2, PortType.Producer, ResourceType.Green);
+        SpawnPortRandomly(3, PortType.Producer, ResourceType.Blue);
+        SpawnPortRandomly(4, PortType.Producer, ResourceType.Yellow);
 
-        SpawnPortRandomly(13, PortType.Consumer, ResourceType.Red);
-        SpawnPortRandomly(14, PortType.Consumer, ResourceType.Blue);
-        SpawnPortRandomly(15, PortType.Consumer, ResourceType.Green);
-        SpawnPortRandomly(16, PortType.Consumer, ResourceType.Yellow);
+        for (int i = 5; i < 15; ++i) {
+            SpawnPortRandomly(i, PortType.Consumer);
+        }
     }
 
-    void SpawnPort(int ID, float xPos, float yPos, PortType portType, ResourceType resourceType)
+    void SpawnPort(int ID, float xPos, float yPos, PortType portType, ResourceType resourceType = ResourceType.White)
     {
-        var port = SpawnEntity(ID, new Vector3(xPos, yPos, -1));
-        _portManager.AddNewPort(ID, port, portType, resourceType);
+        GameObject port = null;
+        if (portType == PortType.Producer)
+        {
+            port = SpawnEntity(ID, new Vector3(xPos, yPos, -1));
+            port.GetComponent<ProducerPortBehaviour>().SetPortRole(resourceType);
+        } else {
+            port = SpawnEntity(ID, new Vector3(xPos, yPos, -1), true);
+        }
 
-        port.GetComponent<PortBehaviour>().SetPortRole(portType, resourceType);
+        _portManager.AddNewPort(ID, port, portType, resourceType);
     }
 
-    void SpawnPortRandomly(int id, PortType portType, ResourceType resourceType)
+    void SpawnPortRandomly(int id, PortType portType, ResourceType resourceType = ResourceType.White)
     {
         var xLimit = GameManager.Instance.cameraManager.gameObjectXLimit;
         var yLimit = GameManager.Instance.cameraManager.gameObjectYLimit;
