@@ -64,6 +64,16 @@ public class DetectionManager : MonoBehaviour
         }
     }
 
+    public float DistanceToClosestDetectedUboat(Vector3 position)
+    {
+        if (_detectedUboatCountDict.Count == 0)
+        {
+            return float.PositiveInfinity;
+        } else {
+            return Vector2.Distance(position, ClosestDetectedUboat(position).transform.position);
+        }
+    }
+
     public void AddFriendly(GameObject friendly)
     {
         try

@@ -38,12 +38,12 @@ public class MovingEntityInitialData
 {
     public static MovingEntityData Convoy(int convoyID)
     {
-        return new MovingEntityData(id: convoyID, hp: 50, speed: 2f, attack: 5, attackPeriod: 1f, attackRange: 1f, attackHitChance: 0.5f, defense: 1, defenseHitChance: 1f);
+        return new MovingEntityData(id: convoyID, hp: 500, speed: 1f, attack: 5, attackPeriod: 1f, attackRange: 1f, attackHitChance: 0.5f, defense: 1, defenseHitChance: 1f);
     }
 
     public static MovingEntityData Escort(int escortID)
     {
-        return new MovingEntityData(id: escortID, hp: 300, speed: 5f, attack: 40, attackPeriod: 1f, attackRange: 1f, attackHitChance: 0.8f, defense: 4, defenseHitChance: 1f);
+        return new MovingEntityData(id: escortID, hp: 300, speed: 2f, attack: 40, attackPeriod: 1f, attackRange: 1f, attackHitChance: 0.8f, defense: 4, defenseHitChance: 1f);
     }
 
     public static MovingEntityData Uboat(int uboatID)
