@@ -6,10 +6,17 @@ using Random = UnityEngine.Random;
 public class StationaryEntitySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _entityPrefab;
+    [SerializeField] private GameObject _secondEntityPrefab;
 
-    protected GameObject SpawnEntity(int id, Vector3 position)
+    protected GameObject SpawnEntity(int id, Vector3 position, bool createSecondEntity = false)
     {
-        var entity = Instantiate<GameObject>(_entityPrefab, position, Quaternion.identity);
+        GameObject entity = null;
+        if (createSecondEntity == false)
+        {
+            entity = Instantiate<GameObject>(_entityPrefab, position, Quaternion.identity);
+        } else {
+            entity = Instantiate<GameObject>(_secondEntityPrefab, position, Quaternion.identity);
+        }
 
         entity.transform.SetParent(gameObject.transform);
         

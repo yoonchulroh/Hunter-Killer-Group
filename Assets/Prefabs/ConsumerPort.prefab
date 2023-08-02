@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2464769148631190190}
   - component: {fileID: 2464769148631190191}
-  - component: {fileID: 1973663681461672964}
   - component: {fileID: 8389144206489244842}
+  - component: {fileID: 5859812345451690695}
   m_Layer: 0
-  m_Name: Port
+  m_Name: ConsumerPort
   m_TagString: Port
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,21 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1973663681461672964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2464769148631190188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d195bce629a0f4226b37e0558547693c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _seawayPrefab: {fileID: 2087089031655143725, guid: 3f49ccf6caec1443e81d16f4de8624f4, type: 3}
-  _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
-  alphabetID: 0
 --- !u!61 &8389144206489244842
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -127,3 +112,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5859812345451690695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2464769148631190188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2941dd9d601a4444080b1db3783d6065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _seawayPrefab: {fileID: 2087089031655143725, guid: 3f49ccf6caec1443e81d16f4de8624f4, type: 3}
+  _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
+  alphabetID: 0

@@ -43,13 +43,13 @@ public enum PortType
     Waypoint
 }
 
-public enum ResourceType
+public enum ResourceType : int
 {
-    Red,
-    Green,
-    Blue,
-    Yellow,
-    Purple,
-    Teal,
-    White
+    Red = 1,
+    Green = 2,
+    Blue = 3,
+    Yellow = 4,
+    Purple = 5,
+    Teal = 6,
+    White = 7
 }
