@@ -16,7 +16,7 @@ public class UboatSpawner : MovingEntitySpawner
         _radarCollection.GetComponent<RadarSpawner>().SpawnDetectorForUboat(uboat, RadarInitialData.Uboat());
     }
 
-    private void SpawnUboatRandomly()
+    protected void SpawnUboatRandomly()
     {
         var xLimit = GameManager.Instance.cameraManager.gameObjectXLimit;
         var yLimit = GameManager.Instance.cameraManager.gameObjectYLimit;

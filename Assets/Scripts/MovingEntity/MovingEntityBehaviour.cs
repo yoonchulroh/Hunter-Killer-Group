@@ -38,6 +38,16 @@ public class MovingEntityBehaviour : MonoBehaviour, IPointerClickHandler
         */
     }
 
+    public void Hide()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+    }
+
+    public void Reveal()
+    {
+        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 1);
+    }
+
     public void SetMovingEntityProperties(MovingEntityData movingEntityData)
     {
         _movingEntityData = movingEntityData;

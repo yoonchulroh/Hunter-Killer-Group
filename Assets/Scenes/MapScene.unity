@@ -2227,7 +2227,7 @@ GameObject:
   - component: {fileID: 887417679}
   - component: {fileID: 887417680}
   m_Layer: 0
-  m_Name: UboatBases
+  m_Name: Motherships
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2261,7 +2261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 5284635431243213282, guid: aa474bf8ffa39498eb1fbed337fa2e4a, type: 3}
-  _secondEntityPrefab: {fileID: 0}
+  _clickFieldPrefab: {fileID: 2915249395153254480, guid: 0eaeb74d96b56485c87d15bfd6f38bbc, type: 3}
+  _radarCollection: {fileID: 761748818}
 --- !u!1 &1032833133
 GameObject:
   m_ObjectHideFlags: 0

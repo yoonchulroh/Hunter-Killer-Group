@@ -75,16 +75,6 @@ public class UboatBehaviour : MovingEntityBehaviour
         _detectorForUboat = detectorForUboat;
     }
 
-    public void Reveal()
-    {
-        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 1);
-    }
-
-    public void Hide()
-    {
-        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-    }
-
     public override void CheckArrivedAtDestination(float allowedRange)
     {
         if (Math.Abs(transform.position.x - _destination.x) < allowedRange && Math.Abs(transform.position.y - _destination.y) < allowedRange)

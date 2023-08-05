@@ -15,9 +15,7 @@ public class PortSpawner : StationaryEntitySpawner
         SpawnPortRandomly(3, PortType.Producer, ResourceType.Blue);
         SpawnPortRandomly(4, PortType.Producer, ResourceType.Yellow);
 
-        for (int i = 5; i < 15; ++i) {
-            SpawnPortRandomly(i, PortType.Consumer);
-        }
+        StartCoroutine(SpawnPortPeriodically());
     }
 
     void SpawnPort(int ID, float xPos, float yPos, PortType portType, ResourceType resourceType = ResourceType.White)
@@ -49,5 +47,16 @@ public class PortSpawner : StationaryEntitySpawner
             portExistsInRange = GameManager.Instance.portManager.PortInRange(xPos, yPos, 4f);
         }
         SpawnPort(id, xPos, yPos, portType, resourceType);
+    }
+
+    private IEnumerator SpawnPortPeriodically()
+    {
+        var i = 5;
+        while (true)
+        {
+            SpawnPortRandomly(i, PortType.Consumer);
+            i += 1;
+            yield return new WaitForSeconds(20f);
+        }
     }
 }
