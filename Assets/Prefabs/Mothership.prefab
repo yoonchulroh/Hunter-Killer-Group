@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5882797281310078132}
   - component: {fileID: 101429055935962630}
-  - component: {fileID: 5819976148225516784}
+  - component: {fileID: 870965165804284461}
+  - component: {fileID: -6891127896496974288}
+  - component: {fileID: 7283638241429203703}
   m_Layer: 0
-  m_Name: UboatBase
-  m_TagString: Untagged
+  m_Name: Mothership
+  m_TagString: Uboat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5819976148225516784
+--- !u!114 &870965165804284461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,6 +96,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 5284635431243213282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eb379abab6854039974cfde802563d6, type: 3}
+  m_Script: {fileID: 11500000, guid: fe67fcec26b5b4d88a836b8ab0c05a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _labelPrefab: {fileID: 5878567600502273413, guid: 77386b6fe546640c49ff4072f3b7983b, type: 3}
+  _destroyedEntityPrefab: {fileID: 7332809504957361738, guid: 88aca8921c64a4ec4805dad49269d98d, type: 3}
+--- !u!50 &-6891127896496974288
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284635431243213282}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &7283638241429203703
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284635431243213282}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
